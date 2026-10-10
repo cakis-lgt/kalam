@@ -1,4 +1,4 @@
-# Kalam (ALIKHTIBAR) — Speaking Proficiency Test Platform
+# KALAM — Speaking Proficiency Test Platform
 
 Web platform for remote, video-based CEFR (Pre-A1–C2) speaking assessment in **Arabic and English**. Candidates take a self-paced test with light gaze proctoring; human examiners review the recordings and score them against a 5-dimension rubric. AI (Whisper transcription + Claude pre-scoring) is an optional assist layer, not the final grader.
 
