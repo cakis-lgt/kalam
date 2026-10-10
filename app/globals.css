@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: "Inter", system-ui, -apple-system, sans-serif;
+    --font-serif: "Source Serif 4", Georgia, serif;
+    --font-arabic: "Amiri", "Scheherazade New", "Noto Naskh Arabic", serif;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: #eef2f7;
+    min-height: 100vh;
+    font-family: var(--font-inter);
+    color: #16202e;
+  }
+
+  [dir="rtl"],
+  [lang="ar"] {
+    font-family: var(--font-arabic);
+  }
+
+  ::selection {
+    background: #cfe3f5;
+  }
+}
+
+@media print {
+  body {
+    background: white !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-serif);
+  }
+
+  .proctor-glow-good {
+    box-shadow: inset 0 0 40px rgba(34, 197, 94, 0.2);
+  }
+
+  .proctor-glow-warning {
+    box-shadow: inset 0 0 50px rgba(234, 179, 8, 0.25);
+  }
+
+  .proctor-glow-danger {
+    box-shadow: inset 0 0 60px rgba(220, 38, 38, 0.3);
+  }
+
+  .recording-pulse {
+    animation: recording-pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes recording-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+}

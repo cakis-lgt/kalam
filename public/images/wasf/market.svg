@@ -1,0 +1,182 @@
+<svg viewBox="0 0 1024 576" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An outdoor fruit and vegetable market stall with a vendor and a customer">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#bfe3f7"/>
+      <stop offset="100%" stop-color="#e7f5fb"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e4d9c3"/>
+      <stop offset="100%" stop-color="#d3c4a4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="576" fill="url(#sky)"/>
+  <rect x="0" y="420" width="1024" height="156" fill="url(#ground)"/>
+
+  <!-- distant buildings -->
+  <g opacity="0.55">
+    <rect x="40" y="230" width="130" height="200" fill="#a9c6d8"/>
+    <rect x="190" y="200" width="110" height="230" fill="#9fbdd0"/>
+    <rect x="820" y="215" width="150" height="215" fill="#a9c6d8"/>
+    <rect x="60" y="255" width="24" height="30" fill="#e7f5fb"/>
+    <rect x="110" y="255" width="24" height="30" fill="#e7f5fb"/>
+    <rect x="210" y="230" width="22" height="28" fill="#e7f5fb"/>
+    <rect x="250" y="230" width="22" height="28" fill="#e7f5fb"/>
+    <rect x="850" y="245" width="24" height="30" fill="#e7f5fb"/>
+    <rect x="900" y="245" width="24" height="30" fill="#e7f5fb"/>
+  </g>
+
+  <!-- background second stall -->
+  <g opacity="0.7">
+    <rect x="720" y="330" width="220" height="12" fill="#8a5a3b"/>
+    <path d="M720 330 L760 270 L940 270 L940 330 Z" fill="#e2705b"/>
+    <path d="M720 330 L760 270 L800 330 Z" fill="#c85a47" opacity="0.5"/>
+    <path d="M840 330 L800 330 L820 270 L860 270 Z" fill="#c85a47" opacity="0.5"/>
+  </g>
+
+  <!-- tree -->
+  <g>
+    <rect x="946" y="330" width="14" height="90" fill="#8a5a3b"/>
+    <circle cx="953" cy="300" r="52" fill="#6fa66a"/>
+    <circle cx="915" cy="330" r="38" fill="#7fb478"/>
+    <circle cx="990" cy="330" r="38" fill="#7fb478"/>
+  </g>
+
+  <!-- ================= MAIN STALL ================= -->
+  <!-- stall table -->
+  <rect x="150" y="400" width="560" height="26" rx="4" fill="#9a6b3f"/>
+  <rect x="150" y="426" width="560" height="80" fill="#7a532f"/>
+  <rect x="150" y="426" width="560" height="10" fill="#6b4726"/>
+  <rect x="176" y="470" width="18" height="60" fill="#5c3d20"/>
+  <rect x="640" y="470" width="18" height="60" fill="#5c3d20"/>
+
+  <!-- awning posts -->
+  <rect x="176" y="190" width="14" height="220" fill="#6b4726"/>
+  <rect x="646" y="190" width="14" height="220" fill="#6b4726"/>
+
+  <!-- striped awning -->
+  <path d="M150 200 L710 200 L680 130 L180 130 Z" fill="#e64c3c"/>
+  <g fill="#f7ede1">
+    <path d="M180 130 L226 130 L246 200 L200 200 Z"/>
+    <path d="M272 130 L318 130 L338 200 L292 200 Z"/>
+    <path d="M364 130 L410 130 L430 200 L384 200 Z"/>
+    <path d="M456 130 L502 130 L522 200 L476 200 Z"/>
+    <path d="M548 130 L594 130 L614 200 L568 200 Z"/>
+    <path d="M640 130 L680 130 L710 200 L664 200 Z"/>
+  </g>
+  <!-- scalloped awning edge -->
+  <g fill="#e64c3c">
+    <circle cx="164" cy="200" r="14"/>
+    <circle cx="210" cy="200" r="14"/>
+    <circle cx="256" cy="200" r="14"/>
+    <circle cx="302" cy="200" r="14"/>
+    <circle cx="348" cy="200" r="14"/>
+    <circle cx="394" cy="200" r="14"/>
+    <circle cx="440" cy="200" r="14"/>
+    <circle cx="486" cy="200" r="14"/>
+    <circle cx="532" cy="200" r="14"/>
+    <circle cx="578" cy="200" r="14"/>
+    <circle cx="624" cy="200" r="14"/>
+    <circle cx="670" cy="200" r="14"/>
+    <circle cx="700" cy="200" r="14"/>
+  </g>
+
+  <!-- sign -->
+  <rect x="360" y="150" width="140" height="42" rx="6" fill="#fff" stroke="#2f6b4f" stroke-width="4"/>
+  <text x="430" y="178" font-family="Georgia, 'Times New Roman', serif" font-size="22" text-anchor="middle" fill="#2f6b4f" font-weight="700">MARKET</text>
+
+  <!-- crates of produce on the table -->
+  <!-- apples (red) -->
+  <g>
+    <rect x="196" y="368" width="90" height="34" rx="4" fill="#8a5a3b"/>
+    <circle cx="212" cy="366" r="15" fill="#d63b3b"/>
+    <circle cx="238" cy="362" r="15" fill="#e14848"/>
+    <circle cx="264" cy="366" r="15" fill="#d63b3b"/>
+    <circle cx="225" cy="378" r="15" fill="#e14848"/>
+    <circle cx="251" cy="378" r="15" fill="#d63b3b"/>
+  </g>
+
+  <!-- oranges (orange) -->
+  <g>
+    <rect x="300" y="368" width="90" height="34" rx="4" fill="#8a5a3b"/>
+    <circle cx="316" cy="366" r="15" fill="#f0932b"/>
+    <circle cx="342" cy="362" r="15" fill="#f5a53a"/>
+    <circle cx="368" cy="366" r="15" fill="#f0932b"/>
+    <circle cx="329" cy="378" r="15" fill="#f5a53a"/>
+    <circle cx="355" cy="378" r="15" fill="#f0932b"/>
+  </g>
+
+  <!-- bananas (yellow) -->
+  <g fill="#f2c53d">
+    <path d="M410 396 Q404 366 430 358 Q436 364 430 370 Q414 378 418 396 Z"/>
+    <path d="M424 396 Q422 362 448 352 Q454 358 448 366 Q432 374 432 396 Z"/>
+    <path d="M438 396 Q440 360 466 350 Q472 356 466 364 Q448 372 446 396 Z"/>
+  </g>
+
+  <!-- grapes (purple) -->
+  <g fill="#7d5ba6">
+    <circle cx="500" cy="382" r="9"/>
+    <circle cx="512" cy="382" r="9"/>
+    <circle cx="506" cy="392" r="9"/>
+    <circle cx="518" cy="392" r="9"/>
+    <circle cx="500" cy="400" r="9"/>
+    <circle cx="512" cy="400" r="9"/>
+  </g>
+
+  <!-- lettuce / greens -->
+  <g fill="#6fae4e">
+    <circle cx="580" cy="390" r="20"/>
+    <circle cx="600" cy="384" r="18"/>
+    <circle cx="562" cy="384" r="16"/>
+  </g>
+
+  <!-- basket next to the stall -->
+  <g>
+    <path d="M90 470 L120 470 L114 500 L96 500 Z" fill="#b98a4d"/>
+    <path d="M90 470 Q105 452 120 470" fill="none" stroke="#8a5a3b" stroke-width="5"/>
+    <circle cx="98" cy="466" r="8" fill="#d63b3b"/>
+    <circle cx="112" cy="464" r="8" fill="#f0932b"/>
+    <circle cx="105" cy="472" r="8" fill="#f2c53d"/>
+  </g>
+
+  <!-- ================= VENDOR (behind stall) ================= -->
+  <g>
+    <!-- legs hidden behind table -->
+    <rect x="510" y="340" width="60" height="70" rx="18" fill="#3f6b8f"/>
+    <!-- head -->
+    <circle cx="540" cy="300" r="26" fill="#c98a5b"/>
+    <!-- hair -->
+    <path d="M514 296 Q516 270 540 268 Q564 270 566 296 Q550 284 540 284 Q530 284 514 296 Z" fill="#3a2a1c"/>
+    <!-- apron -->
+    <rect x="518" y="332" width="44" height="10" fill="#f7ede1"/>
+    <!-- arm gesturing to produce -->
+    <path d="M566 350 Q590 360 600 380" stroke="#3f6b8f" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <circle cx="602" cy="384" r="9" fill="#c98a5b"/>
+  </g>
+
+  <!-- ================= CUSTOMER (in front of stall) ================= -->
+  <g>
+    <!-- legs -->
+    <rect x="330" y="470" width="20" height="70" fill="#4b3f72"/>
+    <rect x="360" y="470" width="20" height="70" fill="#4b3f72"/>
+    <!-- shoes -->
+    <rect x="326" y="536" width="30" height="10" rx="4" fill="#2a2440"/>
+    <rect x="356" y="536" width="30" height="10" rx="4" fill="#2a2440"/>
+    <!-- body / dress -->
+    <path d="M320 470 Q322 400 355 396 Q388 400 390 470 Z" fill="#e0704f"/>
+    <!-- arms -->
+    <path d="M325 420 Q300 440 292 466" stroke="#e0704f" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <!-- head -->
+    <circle cx="355" cy="368" r="26" fill="#e2a86f"/>
+    <!-- hair -->
+    <path d="M330 366 Q328 336 355 334 Q382 336 380 366 Q380 400 372 404 Q378 380 355 378 Q332 380 338 404 Q330 400 330 366 Z" fill="#241a12"/>
+    <!-- basket held by customer -->
+    <path d="M270 462 L306 462 L300 494 L276 494 Z" fill="#c99a5f"/>
+    <path d="M270 462 Q288 440 306 462" fill="none" stroke="#8a5a3b" stroke-width="5"/>
+    <circle cx="280" cy="458" r="8" fill="#6fae4e"/>
+    <circle cx="296" cy="456" r="8" fill="#d63b3b"/>
+  </g>
+
+  <!-- ground shadow line -->
+  <rect x="0" y="420" width="1024" height="4" fill="#c3b28e" opacity="0.6"/>
+</svg>

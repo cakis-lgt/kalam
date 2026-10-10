@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&amp;family=Amiri:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#eef2f7}
+  ::selection{background:#cfe3f5}
+  @keyframes kpulse{0%,100%{opacity:1}50%{opacity:.35}}
+  @keyframes kspin{to{transform:rotate(360deg)}}
+  @keyframes kfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @keyframes kping{0%{transform:scale(.9);opacity:.8}70%{transform:scale(2.2);opacity:0}100%{opacity:0}}
+  @keyframes kbar{0%{background-position:0 0}100%{background-position:28px 0}}
+  @keyframes krise{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+  @media print{.k-noprint{display:none!important}.k-print{box-shadow:none!important;border:none!important}}
+</style>
+</helmet>
+
+<div style="font-family:Inter,system-ui,sans-serif;color:#16202e;background:#eef2f7;min-height:100vh;-webkit-font-smoothing:antialiased">
+
+<!-- ============ TOP NAV ============ -->
+<sc-if value="{{ showNav }}">
+<div class="k-noprint" style="position:sticky;top:0;z-index:50;background:rgba(250,248,243,.86);backdrop-filter:blur(12px);border-bottom:1px solid #d8e0ea">
+  <div style="max-width:1180px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between">
+    <div onClick="{{ onLogo }}" style="display:flex;align-items:center;gap:11px;cursor:pointer">
+      <div style="width:34px;height:34px;border-radius:9px;background:#156c84;display:flex;align-items:center;justify-content:center;font-family:Amiri,serif;font-size:21px;color:#fff;font-weight:700">ك</div>
+      <div style="display:flex;flex-direction:column;line-height:1.05">
+        <span style="font-family:'Source Serif 4',serif;font-weight:600;font-size:18px;letter-spacing:-.01em">Kalam</span>
+        <span style="font-size:10px;color:#94a3b8;font-weight:500;letter-spacing:.03em">MAHARAH KALAM</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:4px">
+      <sc-for list="{{ navLinks }}" as="lnk" hint-placeholder-count="2">
+        <button onClick="{{ lnk.onClick }}" style="{{ lnk.style }}">{{ lnk.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:32px;height:32px;border-radius:50%;background:{{ avatarBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">{{ userInitials }}</div>
+        <div style="display:flex;flex-direction:column;line-height:1.2;white-space:nowrap">
+          <span style="font-size:13px;font-weight:600">{{ userName }}</span>
+          <span style="font-size:11px;color:#94a3b8">{{ roleLabel }}</span>
+        </div>
+      </div>
+      <button onClick="{{ onLogout }}" style="border:1px solid #cfd9e6;background:#fff;color:#475569;font-size:12.5px;font-weight:500;padding:7px 13px;border-radius:9px;cursor:pointer;font-family:inherit">Keluar</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ LANDING ============ -->
+<sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+<div>
+  <div style="border-bottom:1px solid #d8e0ea;background:#f5f8fb">
+    <div style="max-width:1180px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:11px">
+        <div style="width:34px;height:34px;border-radius:9px;background:#156c84;display:flex;align-items:center;justify-content:center;font-family:Amiri,serif;font-size:21px;color:#fff;font-weight:700">A</div>
+        <span style="font-family:'Source Serif 4',serif;font-weight:600;font-size:19px;letter-spacing:-.01em" data-om-label="Alikhtibar Kalam">Alikhtibar Kalam</span>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button onClick="{{ onLogin }}" style="border:1px solid #cfd9e6;background:#fff;color:#334155;font-size:13.5px;font-weight:500;padding:9px 18px;border-radius:10px;cursor:pointer;font-family:inherit">Masuk</button>
+        <button onClick="{{ onRegister }}" style="border:none;background:#156c84;color:#fff;font-size:13.5px;font-weight:600;padding:9px 18px;border-radius:10px;cursor:pointer;font-family:inherit">Daftar</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1180px;margin:0 auto;padding:72px 24px 40px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#d6ebf0;color:#0d4f63;font-size:12.5px;font-weight:600;padding:6px 13px;border-radius:99px;margin-bottom:24px">
+        <span style="width:7px;height:7px;border-radius:50%;background:#156c84"></span>Penilaian berstandar CEFR · Pre-A1 hingga C2
+      </div>
+      <h1 style="font-family:'Source Serif 4',serif;font-size:43px;line-height:1.14;font-weight:600;letter-spacing:-.02em;margin:0 0 24px;display:flex;flex-direction:column">
+        <span>Tes Maharah al-Kalam,</span>
+        <span>dari mana saja —</span>
+        <span style="color:#156c84">dinilai penguji sungguhan.</span>
+      </h1>
+      <p style="font-size:17px;line-height:1.6;color:#475569;margin:0 0 32px;max-width:480px">Ujian berbicara Bahasa Arab secara mandiri lewat video. Direkam dengan pengawasan kontak mata, lalu dinilai langsung oleh penguji berpengalaman dengan rubrik CEFR enam dimensi.</p>
+      <div style="display:flex;gap:12px;align-items:center">
+        <button onClick="{{ onRegister }}" style="border:none;background:#156c84;color:#fff;font-size:15px;font-weight:600;padding:14px 26px;border-radius:11px;cursor:pointer;font-family:inherit;box-shadow:0 8px 20px -8px rgba(21,108,132,.55)">Mulai Daftar</button>
+        <button onClick="{{ onLogin }}" style="border:1px solid #cfd9e6;background:#fff;color:#334155;font-size:15px;font-weight:600;padding:14px 24px;border-radius:11px;cursor:pointer;font-family:inherit">Sudah punya akun</button>
+      </div>
+    </div>
+    <div style="position:relative">
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:20px;padding:28px;box-shadow:0 30px 60px -30px rgba(28,25,23,.25)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+          <span style="font-size:12px;font-weight:600;color:#94a3b8;letter-spacing:.04em">CONTOH HASIL</span>
+          <span style="font-size:12px;font-weight:700;color:#fff;background:#22c55e;padding:3px 11px;border-radius:99px">B1 · Baik</span><!--ok-->
+        </div>
+        <div dir="rtl" style="font-family:Amiri,serif;font-size:25px;line-height:1.7;color:#1f2a3a;margin-bottom:6px">صِفْ مَدِينَتَكَ المُفَضَّلَة</div>
+        <div style="font-size:13px;color:#64748b;margin-bottom:22px">Deskripsikan kota favoritmu</div>
+        <div style="display:grid;gap:11px">
+          <sc-for list="{{ heroBars }}" as="b" hint-placeholder-count="4">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px"><span style="font-weight:500;color:#334155">{{ b.label }}</span><span style="font-weight:600;color:#64748b">{{ b.score }}/5</span></div>
+              <div style="height:7px;background:#e4eaf1;border-radius:99px;overflow:hidden"><div style="height:100%;width:{{ b.pct }};background:{{ b.color }};border-radius:99px"></div></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:-18px;right:-14px;background:#16202e;color:#fff;border-radius:13px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 16px 30px -12px rgba(0,0,0,.4)">
+        <span style="width:9px;height:9px;border-radius:50%;background:#22c55e;animation:kpulse 1.6s infinite"></span>
+        <span style="font-size:12.5px;font-weight:500">Nilai diterima · real-time</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1180px;margin:0 auto;padding:40px 24px 24px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+      <sc-for list="{{ valueProps }}" as="v" hint-placeholder-count="3">
+        <div style="background:#fff;border:1px solid #d8e0ea;border-radius:16px;padding:24px">
+          <div style="width:42px;height:42px;border-radius:11px;background:#d6ebf0;color:#156c84;display:flex;align-items:center;justify-content:center;margin-bottom:14px">{{ v.icon }}</div>
+          <div style="font-family:'Source Serif 4',serif;font-size:18px;font-weight:600;margin-bottom:7px">{{ v.title }}</div>
+          <div style="font-size:14px;line-height:1.55;color:#475569">{{ v.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:1180px;margin:0 auto;padding:30px 24px 56px">
+    <div style="font-family:'Source Serif 4',serif;font-size:14px;font-weight:600;color:#94a3b8;letter-spacing:.05em;text-align:center;margin-bottom:26px">EMPAT LANGKAH</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+      <sc-for list="{{ flowSteps }}" as="s" hint-placeholder-count="4">
+        <div style="position:relative;background:#f5f8fb;border:1px solid #d8e0ea;border-radius:14px;padding:20px">
+          <div style="font-family:'Source Serif 4',serif;font-size:30px;font-weight:600;color:#9fd2de;margin-bottom:8px">{{ s.n }}</div>
+          <div style="font-size:14.5px;font-weight:600;margin-bottom:5px">{{ s.title }}</div>
+          <div style="font-size:13px;line-height:1.5;color:#64748b">{{ s.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer style="background:#16202e;color:#94a3b8;margin-top:24px">
+    <div style="max-width:1180px;margin:0 auto;padding:52px 24px 0;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px">
+      <div>
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px">
+          <div style="width:36px;height:36px;border-radius:9px;background:#156c84;display:flex;align-items:center;justify-content:center;font-family:Amiri,serif;font-size:22px;color:#fff;font-weight:700">ك</div>
+          <div style="display:flex;flex-direction:column;line-height:1.1"><span style="font-family:'Source Serif 4',serif;font-weight:600;font-size:19px;color:#f1f5f9">Kalam</span><span style="font-size:10.5px;color:#64748b;letter-spacing:.04em">MAHARAH KALAM</span></div>
+        </div>
+        <p style="font-size:13.5px;line-height:1.6;color:#94a3b8;margin:0 0 18px;max-width:300px">Platform tes berbicara Bahasa Arab berstandar CEFR — mandiri lewat video, dinilai langsung oleh penguji berpengalaman.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span style="font-size:11.5px;font-weight:600;color:#9fd2de;background:#1f2a3a;border:1px solid #25303f;padding:5px 11px;border-radius:99px">Standar CEFR</span>
+          <span style="font-size:11.5px;font-weight:600;color:#9fd2de;background:#1f2a3a;border:1px solid #25303f;padding:5px 11px;border-radius:99px">Pre-A1 – C2</span>
+        </div>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#e2e8f0;letter-spacing:.04em;margin-bottom:14px">{{ col.title }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ col.links }}" as="lk" hint-placeholder-count="4">
+              <a href="#" style="font-size:13.5px;color:#94a3b8;text-decoration:none" style-hover="color:#9fd2de">{{ lk }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="max-width:1180px;margin:0 auto;padding:36px 24px 28px;margin-top:44px;border-top:1px solid #25303f;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <span style="font-size:12.5px;color:#64748b">© 2026 Kalam · Universitas Darussalam Gontor</span>
+      <div style="display:flex;align-items:center;gap:20px">
+        <a href="#" style="font-size:12.5px;color:#94a3b8;text-decoration:none" style-hover="color:#9fd2de">Kebijakan Privasi</a>
+        <a href="#" style="font-size:12.5px;color:#94a3b8;text-decoration:none" style-hover="color:#9fd2de">Ketentuan Layanan</a>
+        <span style="font-size:12.5px;color:#64748b">🌐 Indonesia</span>
+      </div>
+    </div>
+  </footer>
+</div>
+</sc-if>
+
+<!-- ============ AUTH ============ -->
+<sc-if value="{{ isAuth }}">
+<div style="min-height:100vh;display:grid;grid-template-columns:1fr 1fr">
+  <div style="background:#16202e;color:#f1f5f9;padding:56px 56px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;opacity:.07;font-family:Amiri,serif;font-size:240px;color:#fff;display:flex;align-items:center;justify-content:center;line-height:0">كلام</div>
+    <div onClick="{{ onLogo }}" style="display:flex;align-items:center;gap:11px;cursor:pointer;position:relative">
+      <div style="width:36px;height:36px;border-radius:9px;background:#156c84;display:flex;align-items:center;justify-content:center;font-family:Amiri,serif;font-size:22px;color:#fff;font-weight:700">ك</div>
+      <span style="font-family:'Source Serif 4',serif;font-weight:600;font-size:20px">Kalam</span>
+    </div>
+    <div style="position:relative">
+      <div dir="rtl" style="font-family:Amiri,serif;font-size:34px;line-height:1.7;margin-bottom:14px">مَنْ جَدَّ وَجَدَ</div>
+      <p style="font-size:16px;line-height:1.6;color:#cbd5e1;max-width:380px">Siapa yang bersungguh-sungguh, ia akan menuai hasilnya. Mari tunjukkan kemampuan berbicaramu.</p>
+    </div>
+    <div style="font-size:12.5px;color:#94a3b8;position:relative">Standar CEFR · Penilaian penguji manusia · Rekaman aman 14 hari</div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;padding:40px">
+    <div style="width:100%;max-width:368px">
+      <h2 style="font-family:'Source Serif 4',serif;font-size:27px;font-weight:600;margin:0 0 6px">{{ authTitle }}</h2>
+      <p style="font-size:14px;color:#64748b;margin:0 0 26px">{{ authSubtitle }}</p>
+
+      <sc-if value="{{ authIsRegister }}">
+        <div style="margin-bottom:14px"><label style="font-size:12.5px;font-weight:600;color:#334155;display:block;margin-bottom:6px">Nama lengkap</label><input placeholder="Mis. Ahmad Fauzan" style="width:100%;padding:11px 13px;border:1px solid #cfd9e6;border-radius:10px;font-size:14px;font-family:inherit;background:#fff"></div>
+      </sc-if>
+      <div style="margin-bottom:14px"><label style="font-size:12.5px;font-weight:600;color:#334155;display:block;margin-bottom:6px">Email</label><input placeholder="kamu@email.com" style="width:100%;padding:11px 13px;border:1px solid #cfd9e6;border-radius:10px;font-size:14px;font-family:inherit;background:#fff"></div>
+      <div style="margin-bottom:18px"><label style="font-size:12.5px;font-weight:600;color:#334155;display:block;margin-bottom:6px">Kata sandi</label><input type="password" placeholder="Minimal 8 karakter" style="width:100%;padding:11px 13px;border:1px solid #cfd9e6;border-radius:10px;font-size:14px;font-family:inherit;background:#fff"></div>
+
+      <button onClick="{{ onAuthSubmit }}" style="width:100%;border:none;background:#156c84;color:#fff;font-size:14.5px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;font-family:inherit;margin-bottom:14px">{{ authCta }}</button>
+
+      <div style="text-align:center;font-size:13.5px;color:#64748b;margin-bottom:22px">{{ authSwitchText }} <button onClick="{{ onAuthSwitch }}" style="border:none;background:none;color:#156c84;font-weight:600;cursor:pointer;font-family:inherit;font-size:13.5px;padding:0">{{ authSwitchCta }}</button></div>
+
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><div style="flex:1;height:1px;background:#d8e0ea"></div><span style="font-size:11.5px;color:#94a3b8;font-weight:500">MASUK CEPAT (DEMO)</span><div style="flex:1;height:1px;background:#d8e0ea"></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px">
+        <button onClick="{{ onDemoCandidate }}" style="border:1px solid #cfd9e6;background:#fff;color:#334155;font-size:12.5px;font-weight:600;padding:11px 6px;border-radius:10px;cursor:pointer;font-family:inherit">Peserta</button>
+        <button onClick="{{ onDemoExaminer }}" style="border:1px solid #cfd9e6;background:#fff;color:#334155;font-size:12.5px;font-weight:600;padding:11px 6px;border-radius:10px;cursor:pointer;font-family:inherit">Penguji</button>
+        <button onClick="{{ onDemoAdmin }}" style="border:1px solid #cfd9e6;background:#fff;color:#334155;font-size:12.5px;font-weight:600;padding:11px 6px;border-radius:10px;cursor:pointer;font-family:inherit">Admin</button>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ CANDIDATE DASHBOARD ============ -->
+<sc-if value="{{ isDashboard }}">
+<div style="max-width:980px;margin:0 auto;padding:40px 24px 64px">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px">
+    <div>
+      <h1 style="font-family:'Source Serif 4',serif;font-size:30px;font-weight:600;margin:0 0 5px">Assalamu'alaikum, {{ firstName }}</h1>
+      <p style="font-size:14.5px;color:#64748b;margin:0">Lanjutkan tes maharah kalam atau lihat riwayat penilaianmu.</p>
+    </div>
+    <button onClick="{{ onNewTest }}" style="border:none;background:#156c84;color:#fff;font-size:14.5px;font-weight:600;padding:13px 22px;border-radius:11px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:9px;box-shadow:0 8px 20px -10px rgba(21,108,132,.55)"><span style="font-size:18px;line-height:1">+</span>Mulai Tes Baru</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:30px">
+    <sc-for list="{{ statCards }}" as="c" hint-placeholder-count="3">
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:18px 20px">
+        <div style="font-size:12.5px;color:#94a3b8;font-weight:500;margin-bottom:8px">{{ c.label }}</div>
+        <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'Source Serif 4',serif;font-size:28px;font-weight:600;color:{{ c.color }}">{{ c.value }}</span><span style="font-size:13px;color:#64748b">{{ c.unit }}</span></div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="font-size:14px;font-weight:600;color:#475569;margin-bottom:14px">Riwayat Sesi</div>
+  <div style="display:grid;gap:12px">
+    <sc-for list="{{ mySessions }}" as="s" hint-placeholder-count="4">
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:20px">
+        <div style="width:50px;height:50px;border-radius:12px;background:{{ s.levelBg }};color:{{ s.levelColor }};display:flex;align-items:center;justify-content:center;font-family:'Source Serif 4',serif;font-weight:700;font-size:17px">{{ s.level }}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:15px;font-weight:600;margin-bottom:3px">{{ s.title }}</div>
+          <div style="font-size:12.5px;color:#94a3b8">{{ s.meta }}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;background:{{ s.statusBg }};color:{{ s.statusColor }};font-size:12px;font-weight:600;padding:6px 12px;border-radius:99px"><span style="width:6px;height:6px;border-radius:50%;background:{{ s.statusColor }};{{ s.dotAnim }}"></span>{{ s.statusLabel }}</div>
+        <button onClick="{{ s.onClick }}" style="{{ s.btnStyle }}">{{ s.action }}</button>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="margin-top:22px;background:#eef6f8;border:1px dashed #bbdee6;border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px">
+    <span style="color:#156c84;font-size:18px">🔒</span>
+    <span style="font-size:13px;color:#64748b;line-height:1.5">Rekaman video disimpan terenkripsi maksimal <b style="color:#475569">14 hari</b> lalu dihapus otomatis. Skor &amp; catatan penguji tersimpan permanen.</span>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ DEVICE CHECK / SETUP ============ -->
+<sc-if value="{{ isSetup }}">
+<div style="max-width:920px;margin:0 auto;padding:36px 24px 64px">
+  <button onClick="{{ onBackDash }}" class="k-noprint" style="border:none;background:none;color:#64748b;font-size:13.5px;font-weight:500;cursor:pointer;font-family:inherit;margin-bottom:18px;padding:0">← Kembali ke dashboard</button>
+  <h1 style="font-family:'Source Serif 4',serif;font-size:28px;font-weight:600;margin:0 0 6px">Pemeriksaan Perangkat</h1>
+  <p style="font-size:14.5px;color:#64748b;margin:0 0 26px">Pastikan kamera, mikrofon, dan pendeteksi wajah siap sebelum tes dimulai.</p>
+
+  <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:start">
+    <div style="background:#0a0f17;border-radius:16px;overflow:hidden;position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center">
+      <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 35%,#2e3a4a,#0a0f17)"></div>
+      <div style="position:relative;text-align:center;color:#94a3b8">
+        <div style="width:96px;height:96px;border-radius:50%;border:2px dashed #475569;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:44px">{{ setupFace }}</div>
+        <div style="font-size:13px;font-weight:500">{{ setupCamMsg }}</div>
+      </div>
+      <div style="position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.5);padding:5px 11px;border-radius:99px"><span style="width:8px;height:8px;border-radius:50%;background:{{ setupDot }};{{ setupDotAnim }}"></span><span style="font-size:11.5px;color:#fff;font-weight:500">{{ setupCamLabel }}</span></div>
+      <div style="position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.5);padding:6px 11px;border-radius:99px;display:flex;align-items:center;gap:8px"><span style="font-size:13px">🎙️</span><div style="display:flex;gap:2px;align-items:flex-end;height:14px"><sc-for list="{{ micBars }}" as="m" hint-placeholder-count="5"><span style="width:3px;height:{{ m.h }};background:#84cc16;border-radius:2px"></span></sc-for></div></div>
+    </div>
+
+    <div>
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:6px 4px;margin-bottom:18px">
+        <sc-for list="{{ checkItems }}" as="ck" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:13px;padding:12px 14px;border-bottom:1px solid #e6ecf3">
+            <div style="width:30px;height:30px;border-radius:8px;background:{{ ck.bg }};color:{{ ck.color }};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">{{ ck.icon }}</div>
+            <div style="flex:1"><div style="font-size:13.5px;font-weight:600">{{ ck.label }}</div><div style="font-size:12px;color:#94a3b8">{{ ck.sub }}</div></div>
+          </div>
+        </sc-for>
+      </div>
+
+      <label style="display:flex;gap:11px;align-items:flex-start;background:#f5f8fb;border:1px solid {{ consentBorder }};border-radius:12px;padding:14px;cursor:pointer;margin-bottom:16px">
+        <input type="checkbox" checked="{{ consent }}" onChange="{{ onToggleConsent }}" style="margin-top:2px;width:17px;height:17px;accent-color:#156c84;cursor:pointer">
+        <span style="font-size:13px;line-height:1.5;color:#475569">Saya setuju rekaman video saya disimpan sementara (<b>14 hari</b>) untuk dinilai penguji, dan dihapus otomatis setelahnya.</span>
+      </label>
+
+      <button onClick="{{ onStartTest }}" disabled="{{ startDisabled }}" style="{{ startBtnStyle }}">{{ startBtnLabel }}</button>
+      <p style="font-size:12px;color:#94a3b8;text-align:center;margin:11px 0 0">Pendeteksian kontak mata berjalan 100% di perangkatmu.</p>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ TEST SESSION ============ -->
+<sc-if value="{{ isTest }}">
+<div style="min-height:100vh;display:flex;flex-direction:column;background:#16202e">
+  <div style="padding:16px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #25303f">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:30px;height:30px;border-radius:8px;background:#156c84;display:flex;align-items:center;justify-content:center;font-family:Amiri,serif;font-size:18px;color:#fff;font-weight:700">ك</div>
+      <span style="color:#94a3b8;font-size:13px;font-weight:500">{{ taskCounter }}</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px">
+      <sc-for list="{{ levelPips }}" as="p" hint-placeholder-count="6">
+        <div style="display:flex;align-items:center;gap:7px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:11px;height:11px;border-radius:50%;background:{{ p.fill }};border:2px solid {{ p.ring }}"></div><span style="font-size:10.5px;font-weight:600;color:{{ p.txt }}">{{ p.label }}</span></div>
+          <div style="width:18px;height:2px;background:{{ p.line }};margin-bottom:14px;{{ p.lastHide }}"></div>
+        </div>
+      </sc-for>
+    </div>
+    <button onClick="{{ onEmergencyStop }}" style="border:1px solid #334155;background:transparent;color:#94a3b8;font-size:12.5px;font-weight:500;padding:7px 13px;border-radius:9px;cursor:pointer;font-family:inherit">Akhiri tugas</button>
+  </div>
+
+  <div style="flex:1;display:grid;grid-template-columns:1fr .82fr;gap:0">
+    <!-- soal -->
+    <div style="padding:48px 56px;display:flex;flex-direction:column;justify-content:center">
+      <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;background:#25303f;color:#9fd2de;font-size:12px;font-weight:600;padding:6px 13px;border-radius:99px;margin-bottom:26px">{{ task.formatLabel }} · {{ task.level }}</div>
+      <div dir="rtl" style="font-family:Amiri,serif;font-size:42px;line-height:1.75;color:#f8fafc;margin-bottom:24px;text-wrap:pretty">{{ task.ar }}</div>
+      <div style="font-size:17px;line-height:1.6;color:#94a3b8;max-width:520px;margin-bottom:28px">{{ task.id }}</div>
+      <sc-if value="{{ task.hasImage }}">
+        <div style="background:#25303f;border:1px solid #2e3a4a;border-radius:14px;height:200px;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:13px;gap:10px;max-width:520px"><span style="font-size:30px">🖼️</span>Gambar untuk dideskripsikan</div>
+      </sc-if>
+    </div>
+
+    <!-- kamera -->
+    <div style="padding:36px 40px;background:#131b27;display:flex;flex-direction:column;justify-content:center;gap:18px">
+      <div style="background:#0a0f17;border-radius:16px;overflow:hidden;position:relative;aspect-ratio:4/3;border:2px solid {{ gazeBorder }}">
+        <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 38%,#36424f,#0a0f17)"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px;opacity:.85;transform:translateX({{ headShift }})">{{ headEmoji }}</div>
+        <div style="position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.55);padding:6px 12px;border-radius:99px"><span style="width:9px;height:9px;border-radius:50%;background:{{ gazeColor }}"></span><span style="font-size:12px;color:#fff;font-weight:500">{{ gazeLabel }}</span></div>
+        <sc-if value="{{ isRecording }}">
+          <div style="position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:7px;background:rgba(220,38,38,.92);padding:6px 12px;border-radius:99px"><span style="width:8px;height:8px;border-radius:50%;background:#fff;animation:kpulse 1.2s infinite"></span><span style="font-size:12px;color:#fff;font-weight:700">REC</span></div>
+        </sc-if>
+        <sc-if value="{{ warnFlash }}">
+          <div style="position:absolute;bottom:14px;left:14px;right:14px;background:rgba(220,38,38,.95);color:#fff;border-radius:11px;padding:11px 14px;display:flex;align-items:center;gap:10px;animation:kfade .25s"><span style="font-size:17px">⚠️</span><div style="flex:1"><div style="font-size:13px;font-weight:700">Tetap pandang kamera</div><div style="font-size:11.5px;opacity:.9">Peringatan ke-{{ warningCount }} · terekam untuk penguji</div></div></div>
+        </sc-if>
+      </div>
+
+      <!-- gaze meter -->
+      <div style="background:#0a0f17;border-radius:13px;padding:15px 17px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:#94a3b8;font-weight:500">Skor kontak mata</span><span style="font-size:12px;font-weight:700;color:{{ gazeColor }}">{{ gazePctLabel }}</span></div>
+        <div style="height:8px;background:#25303f;border-radius:99px;overflow:hidden"><div style="height:100%;width:{{ gazePct }};background:{{ gazeColor }};border-radius:99px;transition:width .2s"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11.5px;color:#64748b"><span>Peringatan: <b style="color:#e2e8f0">{{ warningCount }}</b>/3</span><span>{{ phaseHint }}</span></div>
+      </div>
+
+      <!-- phase panel -->
+      <div style="background:{{ phaseBg }};border-radius:13px;padding:18px;text-align:center">
+        <sc-if value="{{ isLoading }}"><div style="color:#94a3b8;font-size:14px;display:flex;align-items:center;justify-content:center;gap:10px"><span style="width:16px;height:16px;border:2px solid #334155;border-top-color:#156c84;border-radius:50%;display:inline-block;animation:kspin .8s linear infinite"></span>Menyiapkan tugas…</div></sc-if>
+        <sc-if value="{{ isPrep }}">
+          <div><div style="font-size:11.5px;color:#5cc6da;font-weight:600;letter-spacing:.05em;margin-bottom:6px">PERSIAPAN — REKAMAN OTOMATIS</div><div style="font-family:'Source Serif 4',serif;font-size:46px;font-weight:600;color:#fff;line-height:1">{{ prepLeftLabel }}</div><div style="font-size:12.5px;color:#94a3b8;margin-top:4px">Rekaman dimulai saat hitungan habis</div></div>
+        </sc-if>
+        <sc-if value="{{ isRecording }}">
+          <div><div style="font-size:11.5px;color:#f87171;font-weight:600;letter-spacing:.05em;margin-bottom:6px">SEDANG MEREKAM</div><div style="font-family:'Source Serif 4',serif;font-size:46px;font-weight:600;color:#fff;line-height:1">{{ recLeftLabel }}</div><div style="font-size:12.5px;color:#94a3b8;margin-top:4px">Tersisa untuk menjawab</div></div>
+        </sc-if>
+        <sc-if value="{{ isUploading }}">
+          <div><div style="font-size:11.5px;color:#60a5fa;font-weight:600;letter-spacing:.05em;margin-bottom:10px">MENGUNGGAH REKAMAN</div><div style="height:9px;background:#25303f;border-radius:99px;overflow:hidden;margin-bottom:8px"><div style="height:100%;width:{{ uploadPctLabel }};background:linear-gradient(90deg,#60a5fa,#3b82f6);border-radius:99px"></div></div><div style="font-size:12.5px;color:#94a3b8">{{ uploadPctLabel }} terunggah</div></div>
+        </sc-if>
+        <sc-if value="{{ isUploaded }}">
+          <div style="color:#4ade80;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:9px"><span style="width:24px;height:24px;border-radius:50%;background:#16a34a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px">✓</span>Terunggah — lanjut…</div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ showDemoSkip }}">
+        <button onClick="{{ onDemoSkip }}" class="k-noprint" style="border:1px dashed #475569;background:transparent;color:#94a3b8;font-size:12px;font-weight:500;padding:9px;border-radius:9px;cursor:pointer;font-family:inherit">⏭ Percepat (demo)</button>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ WAITING ROOM ============ -->
+<sc-if value="{{ isWaiting }}">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px">
+  <div style="max-width:480px;width:100%;text-align:center">
+    <div style="position:relative;width:120px;height:120px;margin:0 auto 30px">
+      <span style="position:absolute;inset:0;border-radius:50%;background:#d6ebf0;animation:kping 2.2s infinite"></span>
+      <span style="position:absolute;inset:14px;border-radius:50%;background:#d6ebf0;animation:kping 2.2s .5s infinite"></span>
+      <div style="position:absolute;inset:24px;border-radius:50%;background:#156c84;display:flex;align-items:center;justify-content:center;font-size:34px">🧑‍🏫</div>
+    </div>
+    <h1 style="font-family:'Source Serif 4',serif;font-size:27px;font-weight:600;margin:0 0 8px">Penguji sedang menilai jawabanmu</h1>
+    <p style="font-size:15px;color:#64748b;margin:0 0 26px;line-height:1.6">Rekaman tesmu telah masuk antrian review. Nilai akan muncul di sini secara otomatis — biasanya dalam <b>5–15 menit</b>.</p>
+
+    <div style="background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:8px;margin-bottom:20px;text-align:left">
+      <sc-for list="{{ waitSteps }}" as="w" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 13px">
+          <div style="width:24px;height:24px;border-radius:50%;background:{{ w.bg }};color:{{ w.color }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">{{ w.icon }}</div>
+          <span style="font-size:13.5px;font-weight:500;color:{{ w.txtColor }}">{{ w.label }}</span>
+          <sc-if value="{{ w.spin }}"><span style="margin-left:auto;width:13px;height:13px;border:2px solid #d8e0ea;border-top-color:#156c84;border-radius:50%;animation:kspin .8s linear infinite"></span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;color:#64748b;margin-bottom:22px"><span style="width:8px;height:8px;border-radius:50%;background:{{ rtColor }};animation:kpulse 1.6s infinite"></span>{{ rtLabel }}</div>
+
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button onClick="{{ onSimPublish }}" class="k-noprint" style="border:none;background:#156c84;color:#fff;font-size:13.5px;font-weight:600;padding:11px 20px;border-radius:10px;cursor:pointer;font-family:inherit">Simulasikan penguji publish →</button>
+      <button onClick="{{ onBackDash }}" style="border:1px solid #cfd9e6;background:#fff;color:#475569;font-size:13.5px;font-weight:500;padding:11px 18px;border-radius:10px;cursor:pointer;font-family:inherit">Tunggu di dashboard</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ RESULT ============ -->
+<sc-if value="{{ isResult }}">
+<div style="max-width:1000px;margin:0 auto;padding:34px 24px 64px" class="k-print">
+  <div class="k-noprint" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px">
+    <button onClick="{{ onBackDash }}" style="border:none;background:none;color:#64748b;font-size:13.5px;font-weight:500;cursor:pointer;font-family:inherit;padding:0">← Dashboard</button>
+    <button onClick="{{ onPrint }}" style="border:1px solid #cfd9e6;background:#fff;color:#334155;font-size:13px;font-weight:600;padding:9px 16px;border-radius:10px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px">🖨 Cetak / PDF</button>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#16202e,#1f2a3a);border-radius:20px;padding:32px 36px;color:#fff;display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:24px;flex-wrap:wrap;animation:krise .4s">
+    <div>
+      <div style="font-size:12.5px;color:#a6cad6;font-weight:500;margin-bottom:8px">HASIL TES MAHARAH KALAM · {{ resultDate }}</div>
+      <div style="display:flex;align-items:center;gap:16px"><div style="font-family:'Source Serif 4',serif;font-size:58px;font-weight:700;line-height:1">{{ resultLevel }}</div><div><div style="display:inline-block;background:{{ resultBandColor }};color:#fff;font-size:13px;font-weight:700;padding:4px 13px;border-radius:99px;margin-bottom:6px">{{ resultBandLabel }}</div><div style="font-size:13.5px;color:#94a3b8">Rata-rata {{ resultAvg }} / 5 · 6 dimensi CEFR</div></div></div>
+    </div>
+    <div style="text-align:right"><div style="font-size:12px;color:#94a3b8;margin-bottom:4px">Dinilai oleh</div><div style="font-size:15px;font-weight:600">{{ examinerNameR }}</div><div style="font-size:12px;color:#94a3b8">{{ publishedAtR }}</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;margin-bottom:22px">
+    <div style="background:#fff;border:1px solid #d8e0ea;border-radius:16px;padding:22px;display:flex;flex-direction:column;align-items:center">
+      <div style="align-self:flex-start;font-size:13px;font-weight:600;color:#475569;margin-bottom:6px">Profil Kemampuan</div>
+      <svg viewBox="0 0 340 320" style="width:100%;max-width:340px;overflow:visible">
+        <sc-for list="{{ radarRings }}" as="r" hint-placeholder-count="5"><polygon points="{{ r }}" fill="none" stroke="#dde5ee" stroke-width="1"></polygon></sc-for>
+        <sc-for list="{{ radarAxes }}" as="a" hint-placeholder-count="6"><line x1="{{ radarCx }}" y1="{{ radarCy }}" x2="{{ a.x2 }}" y2="{{ a.y2 }}" stroke="#dde5ee" stroke-width="1"></line></sc-for>
+        <polygon points="{{ radarData }}" fill="rgba(21,108,132,.18)" stroke="#156c84" stroke-width="2.5" stroke-linejoin="round"></polygon>
+        <sc-for list="{{ radarDots }}" as="d" hint-placeholder-count="6"><circle cx="{{ d.cx }}" cy="{{ d.cy }}" r="4.5" fill="#156c84"></circle></sc-for>
+        <sc-for list="{{ radarLabels }}" as="l" hint-placeholder-count="6"><text x="{{ l.x }}" y="{{ l.y }}" text-anchor="{{ l.anchor }}" font-size="12.5" font-weight="600" font-family="Inter,sans-serif" fill="#475569">{{ l.id }}</text><text x="{{ l.x }}" y="{{ l.y2 }}" text-anchor="{{ l.anchor }}" font-size="11" font-family="Inter,sans-serif" fill="#94a3b8">{{ l.score }}/5</text></sc-for>
+      </svg>
+    </div>
+
+    <div style="background:#fff;border:1px solid #d8e0ea;border-radius:16px;padding:22px">
+      <div style="font-size:13px;font-weight:600;color:#475569;margin-bottom:14px">Rincian per Dimensi</div>
+      <div style="display:grid;gap:14px">
+        <sc-for list="{{ dimBreakdown }}" as="d" hint-placeholder-count="6">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:13.5px;font-weight:600">{{ d.id }}</span><span dir="rtl" style="font-family:Amiri,serif;font-size:15px;color:#94a3b8">{{ d.ar }}</span></div><span style="font-size:13px;font-weight:700;color:{{ d.color }}">{{ d.score }}/5</span></div>
+            <div style="height:7px;background:#e4eaf1;border-radius:99px;overflow:hidden"><div style="height:100%;width:{{ d.pct }};background:{{ d.color }};border-radius:99px"></div></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #d8e0ea;border-radius:16px;padding:24px;margin-bottom:18px">
+    <div style="font-size:13px;font-weight:600;color:#475569;margin-bottom:10px">Catatan &amp; Rekomendasi Penguji</div>
+    <p style="font-size:14.5px;line-height:1.65;color:#334155;margin:0">{{ resultSummary }}</p>
+    <div style="display:grid;gap:10px;margin-top:16px">
+      <sc-for list="{{ examinerNotes }}" as="n" hint-placeholder-count="3">
+        <div style="display:flex;gap:11px;padding:12px 14px;background:#f5f8fb;border-radius:10px"><span style="font-size:12px;font-weight:700;color:#156c84;flex-shrink:0;width:74px">{{ n.dim }}</span><span style="font-size:13.5px;color:#475569;line-height:1.5">{{ n.text }}</span></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div class="k-noprint" style="background:#eef6f8;border:1px dashed #bbdee6;border-radius:12px;padding:13px 17px;font-size:12.5px;color:#64748b;display:flex;align-items:center;gap:10px"><span style="color:#156c84">🗓</span>Rekaman video tes ini akan dihapus otomatis pada <b style="color:#475569">{{ expiryDate }}</b>. Skor ini tetap tersimpan permanen.</div>
+</div>
+</sc-if>
+
+<!-- ============ EXAMINER DASHBOARD ============ -->
+<sc-if value="{{ isExaminer }}">
+<div style="max-width:1080px;margin:0 auto;padding:38px 24px 64px">
+  <div style="margin-bottom:24px">
+    <h1 style="font-family:'Source Serif 4',serif;font-size:29px;font-weight:600;margin:0 0 5px">Antrian Penilaian</h1>
+    <p style="font-size:14.5px;color:#64748b;margin:0">Klaim sesi untuk meninjau rekaman dan memberi nilai berdasarkan rubrik CEFR.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px">
+    <sc-for list="{{ exStats }}" as="c" hint-placeholder-count="4">
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:16px 18px"><div style="font-size:12.5px;color:#94a3b8;font-weight:500;margin-bottom:6px">{{ c.label }}</div><div style="font-family:'Source Serif 4',serif;font-size:26px;font-weight:600;color:{{ c.color }}">{{ c.value }}</div></div>
+    </sc-for>
+  </div>
+
+  <div style="display:flex;gap:6px;margin-bottom:16px;background:#e4eaf1;padding:4px;border-radius:11px;width:fit-content">
+    <sc-for list="{{ filterTabs }}" as="f" hint-placeholder-count="3"><button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button></sc-for>
+  </div>
+
+  <sc-if value="{{ queueEmpty }}">
+    <div style="background:#fff;border:1px dashed #cfd9e6;border-radius:16px;padding:56px;text-align:center"><div style="font-size:40px;margin-bottom:12px">🗂️</div><div style="font-size:16px;font-weight:600;margin-bottom:5px">Tidak ada sesi di kategori ini</div><div style="font-size:13.5px;color:#94a3b8">Cek lagi nanti atau pilih filter lain.</div></div>
+  </sc-if>
+  <sc-if value="{{ queueHasItems }}">
+  <div style="background:#fff;border:1px solid #d8e0ea;border-radius:16px;overflow:hidden">
+    <div style="display:grid;grid-template-columns:2fr 1.1fr .8fr 1fr 1.1fr;gap:12px;padding:13px 20px;background:#f5f8fb;border-bottom:1px solid #d8e0ea;font-size:11.5px;font-weight:600;color:#94a3b8;letter-spacing:.03em">
+      <div>PESERTA</div><div>TANGGAL TES</div><div>TUGAS</div><div>PERINGATAN</div><div style="text-align:right">AKSI</div>
+    </div>
+    <sc-for list="{{ queueRows }}" as="q" hint-placeholder-count="6">
+      <div style="display:grid;grid-template-columns:2fr 1.1fr .8fr 1fr 1.1fr;gap:12px;padding:14px 20px;border-bottom:1px solid #e6ecf3;align-items:center">
+        <div style="display:flex;align-items:center;gap:11px"><div style="width:36px;height:36px;border-radius:50%;background:{{ q.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600">{{ q.initials }}</div><div style="min-width:0;white-space:nowrap"><div style="font-size:14px;font-weight:600">{{ q.name }}</div><div style="font-size:12px;color:#94a3b8">{{ q.target }}</div></div></div>
+        <div style="font-size:13px;color:#475569">{{ q.date }}</div>
+        <div style="font-size:13px;color:#475569">{{ q.taskCount }} tugas</div>
+        <div><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:{{ q.warnColor }}">{{ q.warnIcon }} {{ q.warnings }}</span></div>
+        <div style="text-align:right"><button onClick="{{ q.onClick }}" style="{{ q.btnStyle }}">{{ q.action }}</button></div>
+      </div>
+    </sc-for>
+  </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ============ EXAMINER REVIEW ============ -->
+<sc-if value="{{ isExaminerReview }}">
+<div style="max-width:1280px;margin:0 auto;padding:22px 24px 40px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <button onClick="{{ onBackQueue }}" style="border:1px solid #cfd9e6;background:#fff;color:#475569;font-size:13px;font-weight:500;padding:8px 13px;border-radius:9px;cursor:pointer;font-family:inherit">← Antrian</button>
+      <div><div style="font-size:17px;font-weight:600;font-family:'Source Serif 4',serif">{{ reviewName }}</div><div style="font-size:12.5px;color:#94a3b8">Tes {{ reviewDate }} · {{ reviewTaskCount }} tugas · Target {{ reviewTarget }}</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;background:#eef6ee;color:#16a34a;font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:99px"><span style="width:7px;height:7px;border-radius:50%;background:#16a34a"></span>Sedang kamu review</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start">
+    <!-- LEFT: video -->
+    <div>
+      <div style="display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap">
+        <sc-for list="{{ taskTabs }}" as="t" hint-placeholder-count="5"><button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button></sc-for>
+      </div>
+      <div style="background:#0a0f17;border-radius:14px;overflow:hidden;position:relative;aspect-ratio:16/10">
+        <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,#36424f,#0a0f17)"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:90px;opacity:.85">🧑‍💼</div>
+        <div style="position:absolute;top:12px;left:12px;background:rgba(0,0,0,.55);padding:5px 11px;border-radius:99px;font-size:12px;color:#fff;font-weight:600">{{ activeTask.formatLabel }} · {{ activeTask.level }}</div>
+        <button onClick="{{ onPlayPause }}" style="position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;color:#16202e">{{ playIcon }}</button>
+        <!-- timeline -->
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(transparent,rgba(0,0,0,.75))">
+          <div style="position:relative;height:6px;background:rgba(255,255,255,.25);border-radius:99px;margin-bottom:8px;cursor:pointer" onClick="{{ onSeek }}">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:{{ videoPct }};background:#156c84;border-radius:99px"></div>
+            <sc-for list="{{ eyeMarkers }}" as="m" hint-placeholder-count="3"><span title="{{ m.title }}" style="position:absolute;top:-3px;left:{{ m.left }};width:3px;height:12px;background:{{ m.color }};border-radius:2px"></span></sc-for>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#e2e8f0;font-variant-numeric:tabular-nums"><span>{{ videoTimeLabel }}</span><span>{{ videoDurLabel }}</span></div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:12px">
+        <div style="flex:1;background:#fff;border:1px solid #d8e0ea;border-radius:12px;padding:13px 15px"><div style="font-size:11.5px;color:#94a3b8;font-weight:500;margin-bottom:4px">Kontak mata rata-rata</div><div style="font-size:18px;font-weight:700;color:{{ eyeAvgColor }}">{{ activeTask.eyeAvg }}</div></div>
+      <div style="flex:1;background:#fff;border:1px solid #d8e0ea;border-radius:12px;padding:13px 15px"><div style="font-size:11.5px;color:#94a3b8;font-weight:500;margin-bottom:4px">Peringatan menoleh</div><div style="font-size:18px;font-weight:700;color:{{ activeTask.warnColor }}">{{ activeTask.warnings }}×</div></div>
+        <div style="flex:1;background:#fff;border:1px solid #d8e0ea;border-radius:12px;padding:13px 15px"><div style="font-size:11.5px;color:#94a3b8;font-weight:500;margin-bottom:4px">Durasi jawaban</div><div style="font-size:18px;font-weight:700;color:#334155">{{ activeTask.durLabel }}</div></div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:12px;padding:16px 18px;margin-top:12px">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:10px"><span style="font-size:12px;font-weight:700;color:#156c84;background:#d6ebf0;padding:3px 9px;border-radius:6px">TRANSKRIPSI AI</span><span style="font-size:11.5px;color:#94a3b8">Whisper · referensi, bukan nilai final</span></div>
+        <div dir="rtl" style="font-family:Amiri,serif;font-size:21px;line-height:1.9;color:#1f2a3a">{{ activeTask.transcript }}</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: rubric -->
+    <div style="position:sticky;top:78px">
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:16px;overflow:hidden">
+        <div style="padding:16px 18px;border-bottom:1px solid #e6ecf3;display:flex;align-items:center;justify-content:space-between"><div style="font-size:15px;font-weight:600;font-family:'Source Serif 4',serif">Rubrik CEFR · 6 Dimensi</div><div style="font-size:11.5px;color:#94a3b8">Skala 0–5</div></div>
+
+        <div style="max-height:none;padding:6px 0">
+          <sc-for list="{{ rubricRows }}" as="r" hint-placeholder-count="6">
+            <div style="padding:13px 18px;border-bottom:1px solid #eef2f7">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
+                <div style="display:flex;align-items:center;gap:9px"><span style="font-size:14px;font-weight:600">{{ r.id }}</span><span dir="rtl" style="font-family:Amiri,serif;font-size:16px;color:#94a3b8">{{ r.ar }}</span></div>
+                <span style="font-size:11px;font-weight:600;color:#156c84;background:#d6ebf0;padding:2px 8px;border-radius:6px">AI: {{ r.ai }}</span>
+              </div>
+              <div style="display:flex;gap:5px;margin-bottom:7px">
+                <sc-for list="{{ r.buttons }}" as="b" hint-placeholder-count="6"><button onClick="{{ b.onClick }}" style="{{ b.style }}">{{ b.n }}</button></sc-for>
+              </div>
+              <button onClick="{{ r.onToggle }}" style="border:none;background:none;color:#94a3b8;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;padding:0">{{ r.toggleLabel }}</button>
+              <sc-if value="{{ r.expanded }}">
+                <div style="margin-top:9px;background:#f5f8fb;border-radius:9px;padding:10px 12px">
+                  <sc-for list="{{ r.bands }}" as="bd" hint-placeholder-count="6"><div style="display:flex;gap:9px;padding:3px 0;font-size:12px"><span style="font-weight:700;color:#156c84;width:14px;flex-shrink:0">{{ bd.n }}</span><span style="color:#475569;line-height:1.4"><b>{{ bd.label }}</b> — {{ bd.d }}</span></div></sc-for>
+                  <textarea onChange="{{ r.onNote }}" placeholder="Catatan untuk dimensi ini…" style="width:100%;margin-top:8px;padding:8px 10px;border:1px solid #cfd9e6;border-radius:8px;font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:#fff"></textarea>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="padding:15px 18px;background:#f5f8fb;border-top:1px solid #e6ecf3">
+          <label style="font-size:12.5px;font-weight:600;color:#334155;display:block;margin-bottom:7px">Level CEFR keseluruhan (keputusan holistik)</label>
+          <select onChange="{{ onOverall }}" value="{{ overall }}" style="width:100%;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;font-size:14px;font-family:inherit;background:#fff;margin-bottom:14px">
+            <sc-for list="{{ levelOptions }}" as="o" hint-placeholder-count="7"><option value="{{ o.v }}">{{ o.t }}</option></sc-for>
+          </select>
+          <label style="font-size:12.5px;font-weight:600;color:#334155;display:block;margin-bottom:7px">Ringkasan &amp; rekomendasi</label>
+          <textarea onChange="{{ onSummary }}" placeholder="Umpan balik keseluruhan untuk peserta…" style="width:100%;padding:9px 11px;border:1px solid #cfd9e6;border-radius:9px;font-size:13.5px;font-family:inherit;resize:vertical;min-height:64px;background:#fff;margin-bottom:14px"></textarea>
+
+          <sc-if value="{{ publishBlocked }}"><div style="font-size:12px;color:#156c84;background:#e3f2f5;border-radius:8px;padding:8px 11px;margin-bottom:11px">⚠ {{ blockMsg }}</div></sc-if>
+          <div style="display:flex;gap:9px">
+            <button onClick="{{ onSaveDraft }}" style="flex:1;border:1px solid #cfd9e6;background:#fff;color:#475569;font-size:13.5px;font-weight:600;padding:11px;border-radius:10px;cursor:pointer;font-family:inherit">Simpan Draft</button>
+            <button onClick="{{ onPublish }}" style="{{ publishStyle }}">Publish Nilai</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ toastShow }}">
+    <div style="position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#16a34a;color:#fff;padding:13px 22px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 16px 30px -12px rgba(0,0,0,.4);z-index:100;display:flex;align-items:center;gap:10px;animation:kfade .3s">✓ {{ toastMsg }}</div>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ============ EXAMINER HISTORY ============ -->
+<sc-if value="{{ isExaminerHistory }}">
+<div style="max-width:1000px;margin:0 auto;padding:38px 24px 64px">
+  <h1 style="font-family:'Source Serif 4',serif;font-size:29px;font-weight:600;margin:0 0 5px">Riwayat Penilaian</h1>
+  <p style="font-size:14.5px;color:#64748b;margin:0 0 24px">Sesi yang sudah kamu nilai dan publish.</p>
+  <div style="display:grid;gap:12px">
+    <sc-for list="{{ historyRows }}" as="h" hint-placeholder-count="4">
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:18px">
+        <div style="width:46px;height:46px;border-radius:11px;background:{{ h.levelBg }};color:{{ h.levelColor }};display:flex;align-items:center;justify-content:center;font-family:'Source Serif 4',serif;font-weight:700;font-size:16px">{{ h.level }}</div>
+        <div style="flex:1"><div style="font-size:14.5px;font-weight:600">{{ h.name }}</div><div style="font-size:12.5px;color:#94a3b8">{{ h.meta }}</div></div>
+        <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:{{ h.bandColor }}">{{ h.band }}</div><div style="font-size:12px;color:#94a3b8">rata-rata {{ h.avg }}/5</div></div>
+        <span style="background:#eef6ee;color:#16a34a;font-size:12px;font-weight:600;padding:5px 12px;border-radius:99px">Terkirim</span>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ ADMIN — DISTRIBUSI ============ -->
+<sc-if value="{{ isAdmin }}">
+<div style="max-width:1180px;margin:0 auto;padding:38px 24px 64px">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:14px">
+    <div>
+      <h1 style="font-family:'Source Serif 4',serif;font-size:29px;font-weight:600;margin:0 0 5px">Distribusi Penilaian</h1>
+      <p style="font-size:14.5px;color:#64748b;margin:0">Tugaskan sesi tes yang masuk ke penguji yang tepat, atau distribusikan otomatis sesuai beban &amp; spesialisasi.</p>
+    </div>
+    <button onClick="{{ onAutoDistribute }}" style="border:none;background:#156c84;color:#fff;font-size:13.5px;font-weight:600;padding:12px 20px;border-radius:11px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:9px;box-shadow:0 8px 20px -10px rgba(21,108,132,.6)">⚡ Distribusi Otomatis</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px">
+    <sc-for list="{{ adminStats }}" as="c" hint-placeholder-count="4">
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:16px 18px"><div style="font-size:12.5px;color:#94a3b8;font-weight:500;margin-bottom:6px">{{ c.label }}</div><div style="font-family:'Source Serif 4',serif;font-size:26px;font-weight:600;color:{{ c.color }}">{{ c.value }}</div></div>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:start">
+    <!-- unassigned -->
+    <div>
+      <div style="font-size:14px;font-weight:600;color:#475569;margin-bottom:13px">Sesi belum ditugaskan</div>
+      <sc-if value="{{ adminEmpty }}">
+        <div style="background:#fff;border:1px dashed #cfd9e6;border-radius:16px;padding:48px;text-align:center"><div style="font-size:38px;margin-bottom:12px">✅</div><div style="font-size:15.5px;font-weight:600;margin-bottom:4px">Semua sesi sudah ditugaskan</div><div style="font-size:13.5px;color:#94a3b8">Tidak ada antrian yang menunggu distribusi.</div></div>
+      </sc-if>
+      <div style="display:grid;gap:12px">
+        <sc-for list="{{ unassignedRows }}" as="q" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #d8e0ea;border-radius:14px;padding:16px 18px">
+            <div style="display:flex;align-items:center;gap:13px;margin-bottom:13px">
+              <div style="width:40px;height:40px;border-radius:50%;background:{{ q.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0">{{ q.initials }}</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:14.5px;font-weight:600">{{ q.name }}</div>
+                <div style="font-size:12.5px;color:#94a3b8">{{ q.target }} · {{ q.date }} · {{ q.taskCount }} tugas</div>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:{{ q.warnColor }};background:#f8fafc;border:1px solid #e6ecf3;padding:5px 10px;border-radius:99px">⚠ {{ q.warnings }} peringatan</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:11px">
+              <select onChange="{{ q.onAssign }}" style="flex:1;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;font-size:13.5px;font-family:inherit;background:#fff;color:#334155;cursor:pointer">
+                <sc-for list="{{ q.options }}" as="o" hint-placeholder-count="5"><option value="{{ o.v }}">{{ o.t }}</option></sc-for>
+              </select>
+              <span style="font-size:12px;color:#156c84;font-weight:500;white-space:nowrap">{{ q.recName }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- workload -->
+    <div>
+      <div style="font-size:14px;font-weight:600;color:#475569;margin-bottom:13px">Beban penguji</div>
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:16px;padding:8px 4px">
+        <sc-for list="{{ examinerCards }}" as="e" hint-placeholder-count="4">
+          <div style="padding:14px 16px;border-bottom:1px solid #eef2f7">
+            <div style="display:flex;align-items:center;gap:11px;margin-bottom:10px">
+              <div style="width:34px;height:34px;border-radius:50%;background:{{ e.color }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">{{ e.initials }}</div>
+              <div style="flex:1;min-width:0"><div style="font-size:13.5px;font-weight:600">{{ e.name }}</div><div style="font-size:11.5px;color:#94a3b8">Fokus {{ e.focus }}</div></div>
+              <span style="font-size:11px;font-weight:600;color:{{ e.statusColor }};background:{{ e.statusBg }};padding:3px 9px;border-radius:99px">{{ e.statusLabel }}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#64748b;margin-bottom:5px"><span>{{ e.load }} aktif · {{ e.done }} selesai</span><span style="font-weight:600">{{ e.load }}/{{ e.cap }}</span></div>
+            <div style="height:7px;background:#e4eaf1;border-radius:99px;overflow:hidden"><div style="height:100%;width:{{ e.pct }};background:{{ e.barColor }};border-radius:99px;transition:width .3s"></div></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ adminToastShow }}">
+    <div style="position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#156c84;color:#fff;padding:13px 22px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 16px 30px -12px rgba(0,0,0,.4);z-index:100;display:flex;align-items:center;gap:10px;animation:kfade .3s">✓ {{ adminToastMsg }}</div>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ============ ADMIN — PENGUJI ============ -->
+<sc-if value="{{ isAdminExaminers }}">
+<div style="max-width:1080px;margin:0 auto;padding:38px 24px 64px">
+  <h1 style="font-family:'Source Serif 4',serif;font-size:29px;font-weight:600;margin:0 0 5px">Penguji</h1>
+  <p style="font-size:14.5px;color:#64748b;margin:0 0 24px">Daftar penguji, spesialisasi level, dan beban penilaian saat ini.</p>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+    <sc-for list="{{ examinerCards }}" as="e" hint-placeholder-count="4">
+      <div style="background:#fff;border:1px solid #d8e0ea;border-radius:16px;padding:22px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+          <div style="width:52px;height:52px;border-radius:50%;background:{{ e.color }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600">{{ e.initials }}</div>
+          <div style="flex:1"><div style="font-size:16px;font-weight:600">{{ e.name }}</div><div style="font-size:12.5px;color:#94a3b8">UNIDA Gontor · Fokus {{ e.focus }}</div></div>
+          <span style="font-size:11.5px;font-weight:600;color:{{ e.statusColor }};background:{{ e.statusBg }};padding:5px 11px;border-radius:99px">{{ e.statusLabel }}</span>
+        </div>
+        <div style="display:flex;gap:10px;margin-bottom:16px">
+          <div style="flex:1;background:#f5f8fb;border-radius:10px;padding:11px 13px"><div style="font-size:11.5px;color:#94a3b8;margin-bottom:3px">Sesi aktif</div><div style="font-size:19px;font-weight:700;color:#7c3aed">{{ e.load }}</div></div>
+          <div style="flex:1;background:#f5f8fb;border-radius:10px;padding:11px 13px"><div style="font-size:11.5px;color:#94a3b8;margin-bottom:3px">Selesai dinilai</div><div style="font-size:19px;font-weight:700;color:#16a34a">{{ e.done }}</div></div>
+          <div style="flex:1;background:#f5f8fb;border-radius:10px;padding:11px 13px"><div style="font-size:11.5px;color:#94a3b8;margin-bottom:3px">Kapasitas</div><div style="font-size:19px;font-weight:700;color:#334155">{{ e.cap }}</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#64748b;margin-bottom:5px"><span>Beban saat ini</span><span style="font-weight:600">{{ e.load }}/{{ e.cap }}</span></div>
+        <div style="height:8px;background:#e4eaf1;border-radius:99px;overflow:hidden"><div style="height:100%;width:{{ e.pct }};background:{{ e.barColor }};border-radius:99px"></div></div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ ADMIN — RIWAYAT DISTRIBUSI ============ -->
+<sc-if value="{{ isAdminHistory }}">
+<div style="max-width:1000px;margin:0 auto;padding:38px 24px 64px">
+  <h1 style="font-family:'Source Serif 4',serif;font-size:29px;font-weight:600;margin:0 0 5px">Riwayat Distribusi</h1>
+  <p style="font-size:14.5px;color:#64748b;margin:0 0 22px">Catatan penugasan sesi ke penguji beserta statusnya.</p>
+  <div style="background:#fff;border:1px solid #d8e0ea;border-radius:16px;overflow:hidden">
+    <div style="display:grid;grid-template-columns:1.6fr 1.4fr .9fr 1fr;gap:12px;padding:13px 20px;background:#f5f8fb;border-bottom:1px solid #d8e0ea;font-size:11.5px;font-weight:600;color:#94a3b8;letter-spacing:.03em">
+      <div>PESERTA</div><div>DITUGASKAN KE</div><div>TANGGAL</div><div style="text-align:right">STATUS</div>
+    </div>
+    <sc-for list="{{ distRows }}" as="d" hint-placeholder-count="5">
+      <div style="display:grid;grid-template-columns:1.6fr 1.4fr .9fr 1fr;gap:12px;padding:14px 20px;border-bottom:1px solid #eef2f7;align-items:center">
+        <div style="display:flex;align-items:center;gap:11px"><div style="width:34px;height:34px;border-radius:50%;background:{{ d.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">{{ d.initials }}</div><div style="min-width:0;white-space:nowrap"><div style="font-size:14px;font-weight:600">{{ d.name }}</div><div style="font-size:12px;color:#94a3b8">{{ d.target }}</div></div></div>
+        <div style="display:flex;align-items:center;gap:9px"><div style="width:28px;height:28px;border-radius:50%;background:{{ d.exColor }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">{{ d.exInitials }}</div><span style="font-size:13.5px;color:#334155;font-weight:500">{{ d.exName }}</span></div>
+        <div style="font-size:13px;color:#64748b">{{ d.date }}</div>
+        <div style="text-align:right"><span style="font-size:12px;font-weight:600;color:{{ d.statusColor }};background:{{ d.statusBg }};padding:5px 12px;border-radius:99px">{{ d.statusLabel }}</span></div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860},&quot;candidateName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Ahmad Fauzan&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;examinerName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Ustadz Fadhil&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;adminName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Koord. Ujian&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;demoFast&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  DIMS = [
+    {key:'pronunciation', id:'Pelafalan', ar:'النُطْق'},
+    {key:'fluency', id:'Kefasihan', ar:'الطَلاقَة'},
+    {key:'grammar', id:'Tata Bahasa', ar:'القَواعِد'},
+    {key:'vocabulary', id:'Kosakata', ar:'المُفْرَدات'},
+    {key:'coherence', id:'Koherensi', ar:'التَماسُك'},
+    {key:'interaction', id:'Interaksi', ar:'التَفاعُل'},
+  ];
+  LEVELS = ['A1','A2','B1','B2','C1','C2'];
+  EXAMINERS = [
+    {id:'e1', name:'Ustadz Fadhil', initials:'UF', color:'#0e7c66', focus:'A1 – B1', cap:8},
+    {id:'e2', name:'Ustadzah Mona', initials:'UM', color:'#7c3aed', focus:'B1 – C2', cap:8},
+    {id:'e3', name:'Ustadz Rasyid', initials:'UR', color:'#1d4ed8', focus:'A1 – A2', cap:6},
+    {id:'e4', name:'Ustadzah Laila', initials:'UL', color:'#be185d', focus:'B2 – C2', cap:6},
+  ];
+  BANDS = [
+    {n:0,label:'Tidak ada bukti',d:'Tidak ada output atau tidak comprehensible'},
+    {n:1,label:'Sangat di bawah',d:'Fragment ekstrem, hampir tidak komunikatif'},
+    {n:2,label:'Di bawah harapan',d:'Pesan sangat terbatas; error signifikan'},
+    {n:3,label:'Sesuai harapan',d:'Pesan dasar tersampaikan; error tidak fatal'},
+    {n:4,label:'Di atas harapan',d:'Komunikatif & natural; error minor'},
+    {n:5,label:'Unggul',d:'Hampir penutur asli; akurat & natural'},
+  ];
+  SEQ = [
+    {id:'t1', level:'A1', formatLabel:'Perkenalan diri', ar:'عَرِّفْ بِنَفْسِكَ: ما اسْمُكَ؟ وَكَمْ عُمْرُكَ؟ وَأَيْنَ تَدْرُسُ؟', tr:'Perkenalkan dirimu: siapa namamu, berapa usiamu, dan di mana kamu belajar?', prep:15, rec:60, img:false,
+     transcript:'اِسْمِي أَحْمَد فَوْزِي، عُمْرِي إِحْدَى وَعِشْرُونَ سَنَة. أَدْرُسُ في الجامِعَةِ الإِسْلامِيَّة، في قِسْمِ اللُّغَةِ العَرَبِيَّة.', eyeAvg:'0.91', warnings:0, dur:48},
+    {id:'t2', level:'A1', formatLabel:'Topik bebas', ar:'تَحَدَّثْ عَنْ أُسْرَتِكَ وَأَفْرادِها', tr:'Ceritakan tentang keluargamu dan anggotanya.', prep:15, rec:60, img:false,
+     transcript:'أُسْرَتِي صَغِيرَة. لِي أَبٌ وَأُمٌّ وَأَخَوانِ. أَبِي مُدَرِّسٌ وَأُمِّي رَبَّةُ بَيْت.', eyeAvg:'0.84', warnings:1, dur:52},
+    {id:'t3', level:'A2', formatLabel:'Deskripsi gambar', ar:'اُنْظُرْ إِلى الصُّورَةِ وَصِفْ ما تَراهُ بِالتَّفْصِيل', tr:'Lihat gambar dan deskripsikan apa yang kamu lihat secara rinci.', prep:30, rec:90, img:true,
+     transcript:'في الصُّورَةِ حَدِيقَةٌ جَمِيلَة. هُناكَ أَطْفالٌ يَلْعَبُونَ، وَأَشْجارٌ خَضْراء، وَالسَّماءُ صافِيَة.', eyeAvg:'0.77', warnings:2, dur:81},
+    {id:'t4', level:'B1', formatLabel:'Roleplay / dialog', ar:'تَخَيَّلْ أَنَّكَ في مَطْعَمٍ. اطْلُبِ الطَّعامَ مِنَ النّادِلِ وَاسْأَلْ عَنِ الأَسْعار', tr:'Bayangkan kamu di restoran. Pesan makanan ke pelayan dan tanyakan harganya.', prep:30, rec:90, img:false,
+     transcript:'السَّلامُ عَلَيْكُم، أُرِيدُ طَبَقَ أَرُزٍّ مَعَ الدَّجاج، وَعَصِيرَ بُرْتُقال. كَمِ الحِسابُ مِنْ فَضْلِك؟', eyeAvg:'0.88', warnings:0, dur:79},
+    {id:'t5', level:'B1', formatLabel:'Argumentasi', ar:'ما رَأْيُكَ في اسْتِخْدامِ الهاتِفِ الذَّكِيِّ في التَّعْلِيم؟ اذْكُرْ سَبَبَيْن', tr:'Bagaimana pendapatmu tentang penggunaan ponsel pintar dalam pendidikan? Sebutkan dua alasan.', prep:30, rec:90, img:false,
+     transcript:'أَرى أَنَّ الهاتِفَ مُفِيدٌ لِلتَّعَلُّمِ لِأَنَّهُ يُسَهِّلُ البَحْثَ عَنِ المَعْلُومات. لَكِنْ قَدْ يُشَتِّتُ الِانْتِباهَ أَحْياناً.', eyeAvg:'0.82', warnings:1, dur:84},
+  ];
+  AI_SUGGEST = {pronunciation:4, fluency:3, grammar:3, vocabulary:3, coherence:4, interaction:4};
+  RESULT_SCORES = {pronunciation:4, fluency:3, grammar:3, vocabulary:4, coherence:3, interaction:4};
+  RESULT_NOTES = [
+    {dim:'Pelafalan', text:'Makhraj huruf jelas dan konsisten. Sedikit perlu perhatian pada huruf ﺽ dan ﻅ.'},
+    {dim:'Kefasihan', text:'Ada jeda saat menyusun kalimat panjang. Perbanyak latihan berbicara spontan.'},
+    {dim:'Interaksi', text:'Kontak mata baik dan responsif. Pertahankan saat dialog roleplay.'},
+  ];
+
+  state = {
+    screen:'landing', role:null, authMode:'login',
+    consent:false, setupReady:false,
+    taskIndex:0, taskPhase:'idle', prepLeft:0, recLeft:0, uploadPct:0,
+    gaze:0.9, warningCount:0, warnFlash:false, headLeft:false,
+    waitStep:0, rtConnected:true,
+    queueFilter:'pending', reviewId:null, activeTaskTab:0,
+    videoTime:0, playing:false,
+    scores:{pronunciation:null,fluency:null,grammar:null,vocabulary:null,coherence:null,interaction:null},
+    expanded:{}, overall:'', summary:'', toast:'',
+    queue:[
+      {id:'q1', name:'Ahmad Fauzan', initials:'AF', target:'B1', date:'15 Jun 2026', taskCount:5, warnings:4, status:'pending', av:'#156c84'},
+      {id:'q2', name:'Siti Rahmawati', initials:'SR', target:'A2', date:'15 Jun 2026', taskCount:4, warnings:1, status:'pending', av:'#0e7c66'},
+      {id:'q3', name:'Muhammad Ridho', initials:'MR', target:'B2', date:'14 Jun 2026', taskCount:6, warnings:7, status:'pending', av:'#7c3aed'},
+      {id:'q4', name:'Nur Aisyah', initials:'NA', target:'A2', date:'14 Jun 2026', taskCount:4, warnings:0, status:'pending', av:'#dc2626'},
+      {id:'q5', name:'Fadhlan Hakim', initials:'FH', target:'B1', date:'14 Jun 2026', taskCount:5, warnings:2, status:'claimed', av:'#1d4ed8', assignedTo:'e1', assignedName:'Ustadz Fadhil'},
+      {id:'q6', name:'Khadijah Salma', initials:'KS', target:'C1', date:'13 Jun 2026', taskCount:6, warnings:1, status:'claimed', av:'#ca8a04', assignedTo:'e2', assignedName:'Ustadzah Mona'},
+      {id:'q7', name:'Yusuf Maulana', initials:'YM', target:'A1', date:'13 Jun 2026', taskCount:4, warnings:3, status:'completed', av:'#0891b2', band:'Baik', bandColor:'#22c55e', avg:'3.8', finalLevel:'A2', assignedTo:'e3', assignedName:'Ustadz Rasyid'},
+      {id:'q8', name:'Hafshah Zahra', initials:'HZ', target:'B2', date:'12 Jun 2026', taskCount:6, warnings:0, status:'completed', av:'#be185d', band:'Sangat Baik', bandColor:'#0ea5e9', avg:'4.6', finalLevel:'B2', assignedTo:'e2', assignedName:'Ustadzah Mona'},
+      {id:'q9', name:'Ibrahim Malik', initials:'IM', target:'B1', date:'12 Jun 2026', taskCount:5, warnings:5, status:'completed', av:'#15803d', band:'Memadai', bandColor:'#84cc16', avg:'3.2', finalLevel:'B1', assignedTo:'e1', assignedName:'Ustadz Fadhil'},
+    ],
+  };
+
+  componentWillUnmount(){ this.clearAll(); }
+  clearAll(){ clearInterval(this.loop); clearInterval(this.up); clearInterval(this.wait); clearInterval(this.vid); }
+
+  // ---- helpers ----
+  cn(){ return this.props.candidateName || 'Ahmad Fauzan'; }
+  en(){ return this.props.examinerName || 'Ustadz Fadhil'; }
+  fmt(s){ const m=Math.floor(s/60), x=s%60; return m+':'+String(x).padStart(2,'0'); }
+  initials(n){ return n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
+  band(avg){
+    if(avg<1.5) return {label:'Belum Memadai', color:'#dc2626'};
+    if(avg<2.5) return {label:'Berkembang', color:'#f97316'};
+    if(avg<3.0) return {label:'Mendekati Cukup', color:'#eab308'};
+    if(avg<3.5) return {label:'Memadai', color:'#84cc16'};
+    if(avg<4.5) return {label:'Baik', color:'#22c55e'};
+    return {label:'Sangat Baik', color:'#0ea5e9'};
+  }
+  gazeInfo(g){
+    if(g>=0.6) return {color:'#22c55e', label:'Kontak mata baik'};
+    if(g>=0.4) return {color:'#eab308', label:'Sedikit menoleh'};
+    return {color:'#ef4444', label:'Pandangan tidak fokus'};
+  }
+  curTask(){ return this.SEQ[this.state.taskIndex]; }
+  dur(v, isRec){ return this.props.demoFast===false ? v : (isRec?8:5); }
+
+  go(screen){ this.setState({screen}); if(typeof window!=='undefined') window.scrollTo(0,0); }
+
+  // ---- test flow ----
+  startTest(){ this.setState({screen:'test', taskIndex:0}); this.beginTask(); }
+  beginTask(){
+    clearInterval(this.loop);
+    this.setState({taskPhase:'loading', gaze:0.9, warningCount:0, warnFlash:false});
+    setTimeout(()=>this.startPrep(), 700);
+  }
+  startPrep(){
+    const p=this.dur(this.curTask().prep,false);
+    this.phaseEnd=Date.now()+p*1000;
+    this.setState({taskPhase:'prep', prepLeft:p});
+    this.runLoop();
+  }
+  startRec(){
+    const r=this.dur(this.curTask().rec,true);
+    this.phaseEnd=Date.now()+r*1000;
+    this.lowSince=null; this.lastWarn=0;
+    this.setState({taskPhase:'recording', recLeft:r});
+  }
+  runLoop(){ clearInterval(this.loop); this.loop=setInterval(()=>this.tick(),200); }
+  tick(){
+    const now=Date.now(), st=this.state;
+    if(st.taskPhase==='prep'){
+      const left=Math.max(0,Math.ceil((this.phaseEnd-now)/1000));
+      if(left!==st.prepLeft) this.setState({prepLeft:left});
+      if(now>=this.phaseEnd) this.startRec();
+    } else if(st.taskPhase==='recording'){
+      this.updateGaze(now);
+      const left=Math.max(0,Math.ceil((this.phaseEnd-now)/1000));
+      if(left!==st.recLeft) this.setState({recLeft:left});
+      if(now>=this.phaseEnd) this.finishRec();
+    }
+  }
+  updateGaze(now){
+    let g=this.state.gaze+(Math.random()-0.45)*0.22;
+    if(Math.random()<0.05) g-=0.45;
+    g=Math.max(0,Math.min(1,g));
+    let warn=this.state.warningCount, flash=this.state.warnFlash;
+    if(g<0.4){
+      if(!this.lowSince) this.lowSince=now;
+      else if(now-this.lowSince>1600 && now-this.lastWarn>2600 && warn<3){ warn++; this.lastWarn=now; flash=true; setTimeout(()=>this.setState({warnFlash:false}),1800); }
+    } else this.lowSince=null;
+    this.setState({gaze:g, warningCount:warn, warnFlash:flash, headLeft:g<0.45});
+  }
+  finishRec(){
+    clearInterval(this.loop);
+    this.setState({taskPhase:'uploading', uploadPct:0});
+    clearInterval(this.up);
+    this.up=setInterval(()=>{
+      let p=this.state.uploadPct+(this.props.demoFast===false?9:20);
+      if(p>=100){ clearInterval(this.up); this.setState({uploadPct:100, taskPhase:'uploaded'}); setTimeout(()=>this.nextTask(),950); }
+      else this.setState({uploadPct:p});
+    },140);
+  }
+  nextTask(){
+    if(this.state.taskIndex < this.SEQ.length-1){ this.setState(s=>({taskIndex:s.taskIndex+1})); this.beginTask(); }
+    else this.completeSession();
+  }
+  emergencyStop(){ if(this.state.taskPhase==='recording'||this.state.taskPhase==='prep'){ clearInterval(this.loop); this.finishRec(); } }
+  demoSkip(){ if(this.state.taskPhase==='prep'||this.state.taskPhase==='recording'){ this.phaseEnd=Date.now()-1; } }
+  completeSession(){ this.clearAll(); this.setState({screen:'waiting', waitStep:0, rtConnected:true}); this.startWait(); }
+  startWait(){
+    clearInterval(this.wait); let n=0;
+    this.wait=setInterval(()=>{ n++; this.setState({waitStep:Math.min(n,2)}); if(n>=(this.props.demoFast===false?10:6)){ clearInterval(this.wait); this.go('result'); } }, 1400);
+  }
+
+  // ---- examiner ----
+  openReview(id){
+    this.setState({screen:'examinerReview', reviewId:id, activeTaskTab:0, videoTime:0, playing:false,
+      scores:{pronunciation:null,fluency:null,grammar:null,vocabulary:null,coherence:null,interaction:null},
+      expanded:{}, overall:'', summary:'', toast:''});
+    if(typeof window!=='undefined') window.scrollTo(0,0);
+  }
+  claim(id){ this.setState(s=>({queue:s.queue.map(q=>q.id===id?{...q,status:'claimed'}:q)})); this.openReview(id); }
+  adn(){ return this.props.adminName || 'Koord. Ujian'; }
+  examLoad(eid){ return this.state.queue.filter(q=>q.status==='claimed' && q.assignedTo===eid).length; }
+  examDone(eid){ return this.state.queue.filter(q=>q.status==='completed' && q.assignedTo===eid).length; }
+  assign(sid, eid){
+    const ex=this.EXAMINERS.find(e=>e.id===eid); if(!ex) return;
+    const sess=this.state.queue.find(q=>q.id===sid);
+    this.setState(s=>({queue:s.queue.map(q=>q.id===sid?{...q,status:'claimed',assignedTo:eid,assignedName:ex.name}:q), toast:'Sesi '+sess.name+' ditugaskan ke '+ex.name}));
+    setTimeout(()=>this.setState({toast:''}),2000);
+  }
+  autoDistribute(){
+    const pend=this.state.queue.filter(q=>q.status==='pending');
+    if(!pend.length) return;
+    const load={}; this.EXAMINERS.forEach(e=>load[e.id]=this.examLoad(e.id));
+    const updates={};
+    pend.forEach(p=>{
+      let best=this.EXAMINERS[0].id, min=Infinity;
+      this.EXAMINERS.forEach(e=>{ const ratio=load[e.id]/e.cap; if(ratio<min){min=ratio;best=e.id;} });
+      load[best]++; const ex=this.EXAMINERS.find(e=>e.id===best);
+      updates[p.id]={eid:best,name:ex.name};
+    });
+    this.setState(s=>({queue:s.queue.map(q=>updates[q.id]?{...q,status:'claimed',assignedTo:updates[q.id].eid,assignedName:updates[q.id].name}:q), toast:pend.length+' sesi terdistribusi otomatis'}));
+    setTimeout(()=>this.setState({toast:''}),2200);
+  }
+  setScore(dim,n){ this.setState(s=>({scores:{...s.scores,[dim]:n}})); }
+  toggleExp(dim){ this.setState(s=>({expanded:{...s.expanded,[dim]:!s.expanded[dim]}})); }
+  playPause(){
+    if(this.state.playing){ clearInterval(this.vid); this.setState({playing:false}); return; }
+    const dur=this.reviewTask().dur;
+    this.setState({playing:true});
+    clearInterval(this.vid);
+    this.vid=setInterval(()=>{ let t=this.state.videoTime+1; if(t>=dur){ clearInterval(this.vid); this.setState({videoTime:dur, playing:false}); } else this.setState({videoTime:t}); },220);
+  }
+  publish(){
+    const all=this.DIMS.every(d=>this.state.scores[d.key]!==null);
+    if(!all || !this.state.overall){ this.setState({toast:''}); this.forceUpdate(); return; }
+    const id=this.state.reviewId;
+    const vals=this.DIMS.map(d=>this.state.scores[d.key]);
+    const avg=(vals.reduce((a,b)=>a+b,0)/6);
+    const b=this.band(avg);
+    this.setState(s=>({queue:s.queue.map(q=>q.id===id?{...q,status:'completed',band:b.label,bandColor:b.color,avg:avg.toFixed(1),finalLevel:s.overall}:q), toast:'Nilai terkirim ke '+this.reviewObj().name}));
+    setTimeout(()=>{ this.setState({toast:''}); this.go('examiner'); }, 1700);
+  }
+  reviewObj(){ return this.state.queue.find(q=>q.id===this.state.reviewId) || this.state.queue[0]; }
+  reviewTask(){ return this.SEQ[this.state.activeTaskTab] || this.SEQ[0]; }
+
+  radarGeo(scores){
+    const cx=170, cy=158, R=108, n=6;
+    const ang=i=>(-90+i*60)*Math.PI/180;
+    const pt=(a,r)=>[cx+r*Math.cos(a), cy+r*Math.sin(a)];
+    const rings=[0.2,0.4,0.6,0.8,1].map(f=>Array.from({length:n},(_,i)=>{const[x,y]=pt(ang(i),R*f);return x.toFixed(1)+','+y.toFixed(1);}).join(' '));
+    const axes=Array.from({length:n},(_,i)=>{const[x,y]=pt(ang(i),R);return {x2:x.toFixed(1),y2:y.toFixed(1)};});
+    const data=scores.map((s,i)=>{const[x,y]=pt(ang(i),R*(s/5));return x.toFixed(1)+','+y.toFixed(1);}).join(' ');
+    const dots=scores.map((s,i)=>{const[x,y]=pt(ang(i),R*(s/5));return {cx:x.toFixed(1),cy:y.toFixed(1)};});
+    const labels=this.DIMS.map((d,i)=>{const a=ang(i);const[x,y]=pt(a,R+24);const c=Math.cos(a);const anchor=Math.abs(c)<0.35?'middle':(c>0?'start':'end');return {x:x.toFixed(1),y:y.toFixed(1),y2:(parseFloat(y)+14).toFixed(1),anchor,id:d.id,score:scores[i]};});
+    return {cx,cy,rings,axes,data,dots,labels};
+  }
+
+  renderVals(){
+    const s=this.state, R=this.props;
+    const screen=s.screen;
+    const isCand=s.role==='candidate', isExam=s.role==='examiner', isAdmin=s.role==='admin';
+    const v={};
+    v.isAdmin=screen==='admin'; v.isAdminExaminers=screen==='adminExaminers'; v.isAdminHistory=screen==='adminHistory';
+
+    // screen flags
+    v.isLanding=screen==='landing'; v.isAuth=screen==='auth'; v.isDashboard=screen==='dashboard';
+    v.isSetup=screen==='setup'; v.isTest=screen==='test'; v.isWaiting=screen==='waiting';
+    v.isResult=screen==='result'; v.isExaminer=screen==='examiner';
+    v.isExaminerReview=screen==='examinerReview'; v.isExaminerHistory=screen==='examinerHistory';
+
+    // nav
+    v.showNav=['dashboard','setup','result','examiner','examinerHistory','admin','adminExaminers','adminHistory'].includes(screen);
+    v.userName=isAdmin?this.adn():(isExam?this.en():this.cn());
+    v.userInitials=this.initials(v.userName);
+    v.avatarBg=isAdmin?'#0d4f63':(isExam?'#0e7c66':'#156c84');
+    v.roleLabel=isAdmin?'Koordinator Ujian':(isExam?'Penguji':'Peserta');
+    v.onLogo=()=>this.go(isAdmin?'admin':(isExam?'examiner':'dashboard'));
+    v.onLogout=()=>{ this.clearAll(); this.setState({role:null,screen:'landing'}); };
+    const navItem=(label,scr)=>({label, onClick:()=>this.go(scr), style:`border:none;background:${screen===scr?'#d6ebf0':'transparent'};color:${screen===scr?'#0d4f63':'#475569'};font-size:13.5px;font-weight:${screen===scr?600:500};padding:8px 14px;border-radius:9px;cursor:pointer;font-family:inherit`});
+    v.navLinks=isAdmin?[navItem('Distribusi','admin'),navItem('Penguji','adminExaminers'),navItem('Riwayat','adminHistory')]:(isExam?[navItem('Antrian','examiner'),navItem('Riwayat','examinerHistory')]:[navItem('Dashboard','dashboard')]);
+
+    // landing
+    v.onLogin=()=>this.setState({screen:'auth',authMode:'login'});
+    v.onRegister=()=>this.setState({screen:'auth',authMode:'register'});
+    v.heroBars=[
+      {label:'Pelafalan',score:4,pct:'80%',color:'#22c55e'},
+      {label:'Kefasihan',score:3,pct:'60%',color:'#84cc16'},
+      {label:'Tata Bahasa',score:4,pct:'80%',color:'#22c55e'},
+      {label:'Interaksi',score:4,pct:'80%',color:'#22c55e'},
+    ];
+    v.valueProps=[
+      {icon:'🎓',title:'Standar CEFR',desc:'Penilaian Pre-A1 hingga C2 dengan rubrik enam dimensi yang konsisten antar penguji.'},
+      {icon:'🎥',title:'Tes mandiri via video',desc:'Kerjakan dari mana saja. Rekaman dimulai otomatis dengan pengawasan kontak mata.'},
+      {icon:'🧑‍🏫',title:'Dinilai penguji manusia',desc:'Bukan sekadar AI — penguji berpengalaman meninjau setiap rekaman dan memberi nilai final.'},
+    ];
+    v.footerCols=[
+      {title:'Produk', links:['Tes Speaking','Dashboard Peserta','Dashboard Penguji','Hasil & Sertifikat']},
+      {title:'Standar', links:['Rubrik CEFR 6 Dimensi','Privasi Rekaman','Retensi 14 Hari','Panduan Penguji']},
+      {title:'Institusi', links:['Tentang UNIDA Gontor','Prodi Bahasa Arab','Bantuan','Kontak']},
+    ];
+    v.flowSteps=[
+      {n:'1',title:'Daftar & cek perangkat',desc:'Buat akun, pastikan kamera & mikrofon siap.'},
+      {n:'2',title:'Kerjakan tes',desc:'Jawab soal Arab adaptif, terekam otomatis.'},
+      {n:'3',title:'Penguji menilai',desc:'Rekaman ditinjau dengan rubrik CEFR.'},
+      {n:'4',title:'Lihat hasil real-time',desc:'Nilai & rekomendasi langsung muncul.'},
+    ];
+
+    // auth
+    const reg=s.authMode==='register';
+    v.authIsRegister=reg;
+    v.authTitle=reg?'Buat akun peserta':'Masuk ke Kalam';
+    v.authSubtitle=reg?'Hasil tesmu akan terikat dengan identitas ini.':'Lanjutkan tes maharah kalam-mu.';
+    v.authCta=reg?'Daftar & lanjut':'Masuk';
+    v.authSwitchText=reg?'Sudah punya akun?':'Belum punya akun?';
+    v.authSwitchCta=reg?'Masuk':'Daftar';
+    v.onAuthSwitch=()=>this.setState({authMode:reg?'login':'register'});
+    v.onAuthSubmit=()=>this.setState({role:'candidate',screen:'dashboard'});
+    v.onDemoCandidate=()=>this.setState({role:'candidate',screen:'dashboard'});
+    v.onDemoExaminer=()=>this.setState({role:'examiner',screen:'examiner'});
+    v.onDemoAdmin=()=>this.setState({role:'admin',screen:'admin'});
+
+    // candidate dashboard
+    v.firstName=this.cn().split(' ')[0];
+    v.onNewTest=()=>{ this.setState({consent:false,setupReady:false}); this.go('setup'); setTimeout(()=>this.setState({setupReady:true}),2600); };
+    v.onBackDash=()=>this.go('dashboard');
+    v.statCards=[
+      {label:'Tes selesai',value:'3',unit:'sesi',color:'#16202e'},
+      {label:'Level tertinggi',value:'B1',unit:'CEFR',color:'#156c84'},
+      {label:'Menunggu nilai',value:'1',unit:'sesi',color:'#ca8a04'},
+    ];
+    const stBadge={
+      in_progress:{label:'Berlangsung',bg:'#eef4ff',color:'#1d4ed8',anim:'animation:kpulse 1.6s infinite'},
+      awaiting_review:{label:'Menunggu penguji',bg:'#e9f4f7',color:'#156c84',anim:''},
+      under_review:{label:'Sedang dinilai',bg:'#f3e8ff',color:'#7c3aed',anim:'animation:kpulse 1.6s infinite'},
+      completed:{label:'Selesai',bg:'#eef6ee',color:'#16a34a',anim:''},
+      expired:{label:'Rekaman dihapus',bg:'#f1f5f9',color:'#64748b',anim:''},
+    };
+    const lvlColor=l=>({A1:'#0891b2',A2:'#0e7c66',B1:'#156c84',B2:'#7c3aed',C1:'#be185d',C2:'#1d4ed8'}[l]||'#64748b');
+    const lvlBg=l=>({A1:'#e0f2fe',A2:'#dcf4ee',B1:'#d6ebf0',B2:'#f3e8ff',C1:'#fce7f3',C2:'#eef4ff'}[l]||'#f1f5f9');
+    const ghostBtn='border:1px solid #cfd9e6;background:#fff;color:#334155;font-size:13px;font-weight:600;padding:9px 16px;border-radius:9px;cursor:pointer;font-family:inherit';
+    const primBtn='border:none;background:#156c84;color:#fff;font-size:13px;font-weight:600;padding:9px 16px;border-radius:9px;cursor:pointer;font-family:inherit';
+    const mkSession=(o)=>{ const b=stBadge[o.status]; return {level:o.level,levelColor:lvlColor(o.level),levelBg:lvlBg(o.level),title:o.title,meta:o.meta,statusLabel:b.label,statusBg:b.bg,statusColor:b.color,dotAnim:b.anim,action:o.action,btnStyle:o.status==='completed'||o.status==='in_progress'?primBtn:ghostBtn,onClick:o.onClick}; };
+    v.mySessions=[
+      mkSession({level:'B1',status:'completed',title:'Tes Maharah Kalam #204',meta:'15 Jun 2026 · 5 tugas · rata-rata 3.5/5',action:'Lihat hasil',onClick:()=>this.go('result')}),
+      mkSession({level:'—',status:'awaiting_review',title:'Tes Maharah Kalam #203',meta:'15 Jun 2026 · 5 tugas terunggah',action:'Lihat status',onClick:()=>this.go('waiting')}),
+      mkSession({level:'B2',status:'expired',title:'Tes Maharah Kalam #198',meta:'28 Mei 2026 · skor tetap tersedia',action:'Lihat hasil',onClick:()=>this.go('result')}),
+    ];
+
+    // setup
+    v.setupReady=s.setupReady;
+    v.setupFace=s.setupReady?'🙂':'…';
+    v.setupCamMsg=s.setupReady?'Wajah terdeteksi dengan baik':'Memuat kamera & pendeteksi wajah…';
+    v.setupCamLabel=s.setupReady?'Kamera aktif':'Menyambungkan…';
+    v.setupDot=s.setupReady?'#22c55e':'#eab308';
+    v.setupDotAnim=s.setupReady?'':'animation:kpulse 1.2s infinite';
+    v.micBars=[{h:'6px'},{h:'12px'},{h:'9px'},{h:'14px'},{h:'7px'}];
+    const ckOk=(label,sub)=>({label,sub,icon:'✓',bg:'#dcf4ee',color:'#16a34a'});
+    const ckWait=(label,sub)=>({label,sub:'Memuat…',icon:'…',bg:'#e9f4f7',color:'#ca8a04'});
+    v.checkItems=s.setupReady?[ckOk('Kamera','640×480 · 24fps'),ckOk('Mikrofon','Input terdeteksi'),ckOk('Pendeteksi kontak mata','MediaPipe siap')]:[ckWait('Kamera'),ckWait('Mikrofon'),ckWait('Pendeteksi kontak mata')];
+    v.consent=s.consent;
+    v.consentBorder=s.consent?'#156c84':'#d8e0ea';
+    v.onToggleConsent=()=>this.setState(p=>({consent:!p.consent}));
+    v.startDisabled=!(s.setupReady&&s.consent);
+    v.startBtnStyle=v.startDisabled?'width:100%;border:none;background:#d8e0ea;color:#94a3b8;font-size:14.5px;font-weight:600;padding:13px;border-radius:11px;cursor:not-allowed;font-family:inherit':'width:100%;border:none;background:#156c84;color:#fff;font-size:14.5px;font-weight:600;padding:13px;border-radius:11px;cursor:pointer;font-family:inherit;box-shadow:0 8px 18px -8px rgba(21,108,132,.55)';
+    v.startBtnLabel=!s.setupReady?'Menyiapkan perangkat…':(!s.consent?'Centang persetujuan dulu':'Mulai Tes →');
+    v.onStartTest=()=>{ if(!v.startDisabled) this.startTest(); };
+
+    // test
+    const t=this.curTask();
+    v.task={level:t.level,formatLabel:t.formatLabel,ar:t.ar,id:t.tr,hasImage:t.img};
+    v.taskCounter='Tugas '+(s.taskIndex+1)+' dari '+this.SEQ.length;
+    const curLvlIdx=this.LEVELS.indexOf(t.level);
+    v.levelPips=this.LEVELS.map((l,i)=>{ const passed=i<curLvlIdx, cur=i===curLvlIdx; return {label:l,fill:passed?'#156c84':(cur?'#156c84':'#2e3a4a'),ring:cur?'#d6ebf0':'transparent',txt:cur?'#fff':(passed?'#9fd2de':'#475569'),line:passed?'#156c84':'#2e3a4a',lastHide:i===this.LEVELS.length-1?'display:none':''}; });
+    const gi=this.gazeInfo(s.gaze);
+    v.gazeColor=gi.color; v.gazeLabel=gi.label; v.gazeBorder=s.taskPhase==='recording'?gi.color:'#25303f';
+    v.gazePct=Math.round(s.gaze*100)+'%'; v.gazePctLabel=Math.round(s.gaze*100)+'%';
+    v.warningCount=s.warningCount; v.warnFlash=s.warnFlash;
+    v.headEmoji='🧑'; v.headShift=s.headLeft?'-22px':'0px';
+    v.isLoading=s.taskPhase==='loading'; v.isPrep=s.taskPhase==='prep'; v.isRecording=s.taskPhase==='recording';
+    v.isUploading=s.taskPhase==='uploading'; v.isUploaded=s.taskPhase==='uploaded';
+    v.prepLeftLabel=this.fmt(s.prepLeft); v.recLeftLabel=this.fmt(s.recLeft); v.uploadPctLabel=Math.round(s.uploadPct)+'%';
+    v.phaseBg=s.taskPhase==='recording'?'#13243a':'#0a0f17';
+    v.phaseHint=s.taskPhase==='recording'?'Sedang direkam':(s.taskPhase==='prep'?'Bersiap…':'—');
+    v.showDemoSkip=s.taskPhase==='prep'||s.taskPhase==='recording';
+    v.onDemoSkip=()=>this.demoSkip();
+    v.onEmergencyStop=()=>this.emergencyStop();
+
+    // waiting
+    const ws=s.waitStep;
+    const wStep=(i,label)=>{ const done=ws>i, active=ws===i; return {label,icon:done?'✓':(active?'':''+(i+1)),bg:done?'#dcf4ee':(active?'#d6ebf0':'#e4eaf1'),color:done?'#16a34a':(active?'#156c84':'#94a3b8'),txtColor:done||active?'#334155':'#94a3b8',spin:active}; };
+    v.waitSteps=[wStep(0,'Rekaman diterima & masuk antrian'),wStep(1,'Penguji meninjau jawaban'),wStep(2,'Menyusun nilai akhir')];
+    v.rtConnected=s.rtConnected; v.rtColor=s.rtConnected?'#22c55e':'#eab308';
+    v.rtLabel=s.rtConnected?'Terhubung · nilai akan muncul otomatis':'Koneksi terputus — refresh manual';
+    v.onSimPublish=()=>{ this.clearAll(); this.go('result'); };
+
+    // result
+    const rs=this.DIMS.map(d=>this.RESULT_SCORES[d.key]);
+    const ravg=rs.reduce((a,b)=>a+b,0)/6;
+    const rband=this.band(ravg);
+    v.resultLevel='B1'; v.resultAvg=ravg.toFixed(1); v.resultBandLabel=rband.label; v.resultBandColor=rband.color;
+    v.resultDate='15 Juni 2026'; v.examinerNameR=this.en(); v.publishedAtR='15 Jun 2026, 14:32';
+    const geo=this.radarGeo(rs);
+    v.radarCx=geo.cx; v.radarCy=geo.cy; v.radarRings=geo.rings; v.radarAxes=geo.axes; v.radarData=geo.data; v.radarDots=geo.dots; v.radarLabels=geo.labels;
+    v.dimBreakdown=this.DIMS.map((d,i)=>{ const sc=rs[i]; const b=this.band(sc); return {id:d.id,ar:d.ar,score:sc,pct:(sc/5*100)+'%',color:b.color}; });
+    v.resultSummary='Performa solid pada level B1. Ahmad mampu menyampaikan ide dengan kosakata yang memadai dan pelafalan jelas. Untuk maju ke B2, fokuskan latihan pada kefasihan saat berbicara spontan dan variasi struktur kalimat.';
+    v.examinerNotes=this.RESULT_NOTES;
+    v.expiryDate='29 Juni 2026';
+    v.onPrint=()=>{ if(typeof window!=='undefined') window.print(); };
+
+    // examiner dashboard
+    v.examinerName=this.en();
+    const pend=s.queue.filter(q=>q.status==='pending').length;
+    const claim=s.queue.filter(q=>q.status==='claimed').length;
+    const comp=s.queue.filter(q=>q.status==='completed').length;
+    v.exStats=[
+      {label:'Menunggu klaim',value:pend,color:'#156c84'},
+      {label:'Sedang direview',value:claim,color:'#7c3aed'},
+      {label:'Selesai dinilai',value:comp,color:'#16a34a'},
+      {label:'Total hari ini',value:s.queue.length,color:'#16202e'},
+    ];
+    const ftab=(key,label)=>({label,onClick:()=>this.setState({queueFilter:key}),style:`border:none;background:${s.queueFilter===key?'#fff':'transparent'};color:${s.queueFilter===key?'#16202e':'#64748b'};font-size:13px;font-weight:600;padding:7px 15px;border-radius:8px;cursor:pointer;font-family:inherit;box-shadow:${s.queueFilter===key?'0 1px 3px rgba(0,0,0,.08)':'none'}`});
+    v.filterTabs=[ftab('pending','Menunggu ('+pend+')'),ftab('claimed','Direview ('+claim+')'),ftab('completed','Selesai ('+comp+')')];
+    const filtered=s.queue.filter(q=>q.status===s.queueFilter);
+    v.queueEmpty=filtered.length===0; v.queueHasItems=filtered.length>0;
+    v.queueRows=filtered.map(q=>{
+      const warnColor=q.warnings>=5?'#dc2626':(q.warnings>=2?'#ca8a04':'#16a34a');
+      let action,onClick,btnStyle;
+      if(q.status==='pending'){ action='Klaim'; onClick=()=>this.claim(q.id); btnStyle=primBtn; }
+      else if(q.status==='claimed'){ action='Lanjut review'; onClick=()=>this.openReview(q.id); btnStyle=ghostBtn; }
+      else { action='Lihat'; onClick=()=>this.openReview(q.id); btnStyle=ghostBtn; }
+      return {name:q.name,initials:q.initials,target:'Target '+q.target,date:q.date,taskCount:q.taskCount,warnings:q.warnings,warnColor,warnIcon:q.warnings>=5?'⚠':'•',avBg:q.av,action,onClick,btnStyle};
+    });
+
+    // examiner review
+    const ro=this.reviewObj();
+    v.reviewName=ro.name; v.reviewDate=ro.date; v.reviewTaskCount=ro.taskCount; v.reviewTarget=ro.target;
+    v.onBackQueue=()=>this.go('examiner');
+    v.taskTabs=this.SEQ.map((tk,i)=>({label:'Tugas '+(i+1),onClick:()=>this.setState({activeTaskTab:i,videoTime:0,playing:false}),style:`border:1px solid ${i===s.activeTaskTab?'#156c84':'#cfd9e6'};background:${i===s.activeTaskTab?'#156c84':'#fff'};color:${i===s.activeTaskTab?'#fff':'#475569'};font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;font-family:inherit`}));
+    const rt=this.reviewTask();
+    v.activeTask={formatLabel:rt.formatLabel,level:rt.level,transcript:rt.transcript,eyeAvg:rt.eyeAvg,warnings:rt.warnings,warnColor:rt.warnings>=2?'#ca8a04':'#16a34a',durLabel:this.fmt(rt.dur)};
+    v.eyeAvgColor=parseFloat(rt.eyeAvg)>=0.8?'#16a34a':(parseFloat(rt.eyeAvg)>=0.6?'#ca8a04':'#dc2626');
+    v.playIcon=s.playing?'⏸':'▶';
+    v.onPlayPause=()=>this.playPause();
+    v.videoTimeLabel=this.fmt(s.videoTime); v.videoDurLabel=this.fmt(rt.dur);
+    v.videoPct=Math.round(s.videoTime/rt.dur*100)+'%';
+    v.onSeek=()=>{};
+    const markCount=rt.warnings; const marks=[];
+    for(let i=0;i<markCount;i++){ const p=20+(i*60/Math.max(markCount,1))+Math.random()*8; marks.push({left:Math.min(p,92)+'%',color:'#ef4444',title:'Menoleh dari kamera'}); }
+    v.eyeMarkers=marks;
+    v.rubricRows=this.DIMS.map(d=>{
+      const cur=s.scores[d.key];
+      const buttons=[0,1,2,3,4,5].map(n=>({n,onClick:()=>this.setScore(d.key,n),style:`flex:1;border:1px solid ${cur===n?'#156c84':'#cfd9e6'};background:${cur===n?'#156c84':'#fff'};color:${cur===n?'#fff':'#64748b'};font-size:13.5px;font-weight:600;padding:8px 0;border-radius:8px;cursor:pointer;font-family:inherit`}));
+      const exp=!!s.expanded[d.key];
+      return {id:d.id,ar:d.ar,ai:this.AI_SUGGEST[d.key],buttons,onToggle:()=>this.toggleExp(d.key),toggleLabel:exp?'▲ Sembunyikan panduan':'▾ Lihat panduan & catatan',expanded:exp,bands:this.BANDS,onNote:()=>{}};
+    });
+    v.levelOptions=[{v:'',t:'Pilih level…'}].concat(['Pre-A1','A1','A2','B1','B2','C1','C2'].map(l=>({v:l,t:l})));
+    v.overall=s.overall;
+    v.onOverall=(e)=>this.setState({overall:e.target.value});
+    v.onSummary=()=>{};
+    const allScored=this.DIMS.every(d=>s.scores[d.key]!==null);
+    v.publishBlocked=!(allScored&&s.overall);
+    const missing=6-this.DIMS.filter(d=>s.scores[d.key]!==null).length;
+    v.blockMsg=!allScored?(missing+' dimensi belum dinilai'):'Tentukan level CEFR keseluruhan';
+    v.publishStyle=v.publishBlocked?'flex:1.3;border:none;background:#d8e0ea;color:#94a3b8;font-size:13.5px;font-weight:600;padding:11px;border-radius:10px;cursor:not-allowed;font-family:inherit':'flex:1.3;border:none;background:#16a34a;color:#fff;font-size:13.5px;font-weight:600;padding:11px;border-radius:10px;cursor:pointer;font-family:inherit';
+    v.onSaveDraft=()=>{ this.setState({toast:'Draft disimpan'}); setTimeout(()=>this.setState({toast:''}),1600); };
+    v.onPublish=()=>this.publish();
+    v.toastShow=!!s.toast; v.toastMsg=s.toast;
+
+    // examiner history
+    v.historyRows=s.queue.filter(q=>q.status==='completed').map(q=>({level:q.finalLevel||q.target,levelColor:lvlColor(q.finalLevel||q.target),levelBg:lvlBg(q.finalLevel||q.target),name:q.name,meta:'Dinilai '+q.date+' · '+q.taskCount+' tugas',band:q.band,bandColor:q.bandColor,avg:q.avg}));
+
+    // ===== ADMIN — distribusi =====
+    v.adminName=this.adn();
+    const unassigned=s.queue.filter(q=>q.status==='pending');
+    const claimedAll=s.queue.filter(q=>q.status==='claimed');
+    const completedAll=s.queue.filter(q=>q.status==='completed');
+    v.adminStats=[
+      {label:'Belum ditugaskan',value:unassigned.length,color:unassigned.length?'#156c84':'#16a34a'},
+      {label:'Sedang dinilai',value:claimedAll.length,color:'#7c3aed'},
+      {label:'Selesai',value:completedAll.length,color:'#16a34a'},
+      {label:'Penguji aktif',value:this.EXAMINERS.length,color:'#0d4f63'},
+    ];
+    // recommend examiner whose focus covers target level
+    const lvlIdx=l=>this.LEVELS.indexOf(l);
+    const focusCovers=(focus,target)=>{ const m=focus.replace(/\s/g,'').split('–'); const a=lvlIdx(m[0]), b=lvlIdx(m[1]); const t=lvlIdx(target); return t>=a && t<=b; };
+    v.unassignedRows=unassigned.map(q=>{
+      const warnColor=q.warnings>=5?'#dc2626':(q.warnings>=2?'#ca8a04':'#16a34a');
+      const opts=this.EXAMINERS.map(e=>({v:e.id, t:e.name+' · '+this.examLoad(e.id)+'/'+e.cap+(focusCovers(e.focus,q.target)?' ★':'')}));
+      const rec=this.EXAMINERS.find(e=>focusCovers(e.focus,q.target) && this.examLoad(e.id)<e.cap);
+      return {id:q.id,name:q.name,initials:q.initials,avBg:q.av,target:'Target '+q.target,date:q.date,taskCount:q.taskCount,warnings:q.warnings,warnColor,
+        recName:rec?('Rekomendasi: '+rec.name):'—',
+        options:[{v:'',t:'Tugaskan ke penguji…'}].concat(opts),
+        onAssign:(e)=>{ if(e.target.value) this.assign(q.id, e.target.value); }};
+    });
+    v.adminEmpty=unassigned.length===0;
+    v.onAutoDistribute=()=>this.autoDistribute();
+    const exCard=(e)=>{ const load=this.examLoad(e.id), pct=Math.min(100,Math.round(load/e.cap*100)); const full=load>=e.cap;
+      return {id:e.id,name:e.name,initials:e.initials,color:e.color,focus:e.focus,load,cap:e.cap,done:this.examDone(e.id),
+        pct:pct+'%', barColor:full?'#dc2626':(pct>=75?'#ca8a04':'#16a34a'),
+        statusLabel:full?'Penuh':'Tersedia', statusBg:full?'#fdecec':'#eef6ee', statusColor:full?'#dc2626':'#16a34a'}; };
+    v.examinerCards=this.EXAMINERS.map(exCard);
+    v.adminToastShow=!!s.toast; v.adminToastMsg=s.toast;
+
+    // admin riwayat distribusi
+    const stMap={claimed:{l:'Sedang dinilai',bg:'#f3e8ff',c:'#7c3aed'},completed:{l:'Selesai',bg:'#eef6ee',c:'#16a34a'}};
+    v.distRows=s.queue.filter(q=>q.assignedTo).map(q=>{ const st=stMap[q.status]||{l:q.status,bg:'#eef2f7',c:'#64748b'}; const ex=this.EXAMINERS.find(e=>e.id===q.assignedTo)||{}; return {name:q.name,initials:q.initials,avBg:q.av,target:'Target '+q.target,date:q.date,exName:q.assignedName,exInitials:ex.initials||'',exColor:ex.color||'#64748b',statusLabel:st.l,statusBg:st.bg,statusColor:st.c}; });
+
+    return v;
+  }
+}
+</script>
+</body>
+</html>

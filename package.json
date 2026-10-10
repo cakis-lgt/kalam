@@ -1,0 +1,43 @@
+{
+  "name": "kalam",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "seed:demo": "node scripts/seed-demo-users.mjs",
+    "bootstrap:supabase": "node scripts/bootstrap-supabase.mjs",
+    "bootstrap:pg": "node scripts/apply-bootstrap-pg.mjs",
+    "check:setup": "node scripts/check-setup.mjs",
+    "e2e:smoke": "node scripts/e2e-smoke.mjs",
+    "e2e:manual-review": "node scripts/e2e-smoke.mjs",
+    "postinstall": "node scripts/copy-mediapipe-wasm.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@mediapipe/tasks-vision": "^0.10.35",
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.2",
+    "lucide-react": "^0.474.0",
+    "next": "^16.2.6",
+    "openai": "^4.77.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "recharts": "^2.15.0",
+    "zod": "^3.24.1",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^16.2.6",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
+  }
+}
